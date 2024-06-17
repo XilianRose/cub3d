@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:14:01 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/06/14 16:49:42 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/06/17 18:12:51 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	main(int argc, char **argv)
 	file.argv = argv;
 	if (file_validation(&file, &errme) == FILE_NV)
 		exit (FILE_NV);
+	initialize_map_info(&map);
 	if (map_validation(&file, &map, &errme) == MAP_NV)
 		exit(MAP_NV);
 }

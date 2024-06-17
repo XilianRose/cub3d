@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:26:12 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/06/14 16:59:31 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/06/17 18:14:00 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_file_info
 
 typedef struct s_map_info
 {
+	int		rows;
 	char	*no_texture;
 	char	*so_texture;
 	char	*we_texture;
@@ -43,7 +44,7 @@ typedef struct s_map_info
 typedef struct s_game_info
 {
 	mlx_t	*mlx;
-}	t_map_info;
+}	t_game_info;
 
 typedef struct s_error
 {
@@ -51,3 +52,7 @@ typedef struct s_error
 	char	*file1;
 	char	*file2;
 }	t_error;
+
+/* utils */
+void	initialize_map_info(t_map_info *map);
+void	error_message(t_error *errme);
