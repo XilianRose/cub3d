@@ -6,53 +6,52 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:50:32 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/06/18 16:01:40 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/06/18 17:41:18 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static bool	contains_elements(t_file_info *file, t_map_info *map, \
-t_error *errme)
+static bool	contains_elements(t_file_info *file, t_map_info *map)
 {
 	char	*row;
 
 	row = "";
-	while (elements_not_null == false && row != NULL)
+	while (elements_not_null(map) == false && row != NULL)
 	{
 		save_elements(row, map);
 		row = get_next_line(file->fd);
 	}
-	if (elements_not_null == false)
+	if (elements_not_null(map) == false)
 		return (free_map_struct(map), false);
 	else
 		return (true);
 }
 
-static bool	contains_valid_chars(char *current, int i, t_map_info *map)
+static bool	contains_valid_chars(char *current, size_t i, t_map_info *map)
 {
-	if (ft_strchr(" 01NOSW", current[i]) == false)
+	if (ft_strchr(" 01NOSW", current[i]) == NULL)
 		return (ft_printf("Error\nmap contains invalid characters\n"), false);
-	if (ft_strchr("NOSW", current[i]) == true && \
+	if (ft_strchr("NOSW", current[i]) && \
 	map->player->orientation == '0')
 		map->player->orientation = current[i];
-	if (ft_strchr("NOSW", current[i]) == true && \
+	if (ft_strchr("NOSW", current[i]) && \
 	map->player->orientation != '0')
 		return (ft_printf("Error\nmap contains more than 1 player \
 		starting positions\n"), false);
 	return (true);
 }
 
-static bool	map_is_closed(char *above, char *current, char *below, int i)
+static bool	map_is_closed(char *above, char *current, char *below, size_t i)
 {
 	if (current[i] == ' ' && (ft_strchr("1 ", current[i - 1]) == false \
 	|| ft_strchr("1 ", current[i + 1]) == false))
 		return (ft_printf("Error\nmap is not properly closed\n"), false);
-	if (ft_strlen(current) > ft_strlen(above) && current[i] > \
-	ft_strlen(above) && current[i] != '1')
+	if (ft_strlen(current) > ft_strlen(above) \
+	&& i > ft_strlen(above) && current[i] != '1')
 		return (ft_printf("Error\nmap is not properly closed\n"), false);
-	if (ft_strlen(current) > ft_strlen(below) && current[i] > \
-	ft_strlen(below) && current[i] != '1')
+	if (ft_strlen(current) > ft_strlen(below) \
+	&& i > ft_strlen(below) && current[i] != '1')
 		return (ft_printf("Error\nmap is not properly closed\n"), false);
 	return (true);
 }
@@ -60,7 +59,7 @@ static bool	map_is_closed(char *above, char *current, char *below, int i)
 static bool	map_is_valid(char *above, char *current, char *below, \
 	t_map_info *map)
 {
-	int		i;
+	size_t	i;
 
 	i = 0;
 	map->rows++;
@@ -94,7 +93,7 @@ int	map_validation(t_file_info *file, t_map_info *map, t_error *errme)
 	above = NULL;
 	current = NULL;
 	below = NULL;
-	if (contains_elements(file, map, errme) != true)
+	if (contains_elements(file, map) != true)
 		exit_wrapper(errme->map0);
 	while (1)
 	{

@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:26:12 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/06/18 15:41:23 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/06/18 17:35:21 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,9 @@ typedef struct s_error
 	char			*map3;
 	char			*map4;
 }	t_error;
+
+/* map validation */
+int		map_validation(t_file_info *file, t_map_info *map, t_error *errme);
 
 /* free */
 void	free_map_struct(t_map_info *map);

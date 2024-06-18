@@ -6,7 +6,7 @@
 #    By: mstegema <mstegema@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/02/10 14:19:38 by mstegema      #+#    #+#                  #
-#    Updated: 2024/06/18 16:53:00 by mstegema      ########   odam.nl          #
+#    Updated: 2024/06/18 17:48:59 by mstegema      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ MLX42	= MLX42/build/libmlx42.a
 ifdef AT_HOME
 LINKS	= -Iinclude -lglfw -L"/opt/homebrew/Cellar/glfw/3.3.8/lib/"
 else
-LINKS	= -lglfw3 -framework Cocoa -framework OpenGL -framework IOkit
+LINKS	= -Iinclude -ldl -lglfw -pthread -lm
 endif
 
 ifdef DEBUG
@@ -41,7 +41,6 @@ SRCS	= $(SRCDIR)/main.c \
 	$(SRCDIR)/map_validation_utils.c \
 	$(SRCDIR)/free.c \
 	$(SRCDIR)/utils.c
-
 # objects
 OBJS	= $(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 
@@ -53,20 +52,22 @@ NC		= \033[0m
 all: $(LIBFT) $(MLX42) $(BINDIR)/$(NAME)
 
 $(LIBFT):
-	@$(MAKE) -C ./libft
+	@echo "$(PURPLE)Building libft...$(NC)"
+	@$(MAKE) -C ./libft || { echo "Building libft failed"; exit 1; }
 
 $(MLX42):
-	@cmake -B MLX42/build ./MLX42
-	@cmake --build MLX42/build -j4
+	@echo "$(PURPLE)Building MLX42...$(NC)"
+	@cmake -B MLX42/build ./MLX42 || { echo "CMake configuration for MLX42 failed"; exit 1; }
+	@cmake --build MLX42/build -j4 || { echo "Building MLX42 failed"; exit 1; }
 
 $(BINDIR)/$(NAME): $(OBJS)
 	@mkdir -p $(BINDIR)
-	@$(CC) -o $(BINDIR)/$(NAME) $(OBJS) $(LIBFT) $(MLX42) $(LINKS)
+	@$(CC) -o $(BINDIR)/$(NAME) $(OBJS) $(CFLAGS) $(LIBFT) $(MLX42) $(LINKS)
 	@echo "$(PURPLE)$(NAME)$(NC) has been created"
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c $(HEADER)
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p $(OBJDIR)
-	@$(CC) -c $(CFLAGS) $< -o $@
+	@$(CC) -c $(CFLAGS) $(HEADER) $< -o $@
 	@echo "Compiling: $(PURPLE)$<$(NC)"
 
 debughome:
