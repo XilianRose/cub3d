@@ -6,14 +6,14 @@
 #    By: mstegema <mstegema@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/02/10 14:19:38 by mstegema      #+#    #+#                  #
-#    Updated: 2024/06/14 16:12:22 by mstegema      ########   odam.nl          #
+#    Updated: 2024/06/18 16:53:00 by mstegema      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= cub3d
 
 # compilation
-CC		= gcc
+CC		= cc
 CFLAGS	= -Wall -Wextra -Werror
 HEADER	= -I $(INCDIR)
 LIBFT	= libft/bin/libft.a
@@ -26,7 +26,7 @@ LINKS	= -lglfw3 -framework Cocoa -framework OpenGL -framework IOkit
 endif
 
 ifdef DEBUG
-LINKS	+= -fsanitize=address -g
+CFLAGS	+= -fsanitize=address -g
 endif
 
 # directories
@@ -36,7 +36,11 @@ OBJDIR	= obj
 BINDIR	= bin
 
 # sources
-SRCS	= src/main.c
+SRCS	= $(SRCDIR)/main.c \
+	$(SRCDIR)/map_validation.c \
+	$(SRCDIR)/map_validation_utils.c \
+	$(SRCDIR)/free.c \
+	$(SRCDIR)/utils.c
 
 # objects
 OBJS	= $(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)

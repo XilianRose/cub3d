@@ -6,11 +6,10 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:14:01 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/06/18 16:02:45 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/06/18 16:30:08 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*	To-do	*/
 #include "cub3d.h"
 
 static int	file_validation(t_file_info *file, t_error *errme)
@@ -38,4 +37,5 @@ int	main(int argc, char **argv)
 	initialize_map_info(&map);
 	if (map_validation(&file, &map, &errme) == MAP_NV)
 		exit(MAP_NV);
+	return (1);
 }
