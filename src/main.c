@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:14:01 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/06/17 18:12:51 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/06/18 16:02:45 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	file_validation(t_file_info *file, t_error *errme)
 {
 	if (file->argc != 2)
 		exit_wrapper(errme->file0);
-	if (my_strendstr(file->argv[1], ".ber") == NULL)
+	if (my_strendstr(file->argv[1], ".cub") == NULL)
 		exit_wrapper(errme->file1);
 	file->fd = open(file->argv[1], O_RDONLY);
 	if (file->fd < 0)
