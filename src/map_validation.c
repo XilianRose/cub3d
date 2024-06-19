@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:50:32 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/06/19 13:33:59 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/06/19 14:46:17 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static bool	contains_elements(t_file_info *file, t_map_info *map)
 		save_elements(row, map);
 		row = get_next_line(file->fd);
 	}
+	my_freestr(row);
 	if (elements_not_null(map) == false)
 		return (free_map_struct(map), false);
 	else
@@ -62,14 +63,13 @@ static bool	map_is_valid(char *above, char *current, char *below, \
 	size_t	i;
 
 	i = 0;
-	map->rows++;
 	if (current == NULL)
 		return (true);
 	while (current[i] == ' ')
 		i++;
-	if (current[i] != '1' || current[ft_strlen(current) != '1'])
+	if (current[i] != '1' || current[ft_strlen(current) - 2] != '1')
 		return (false);
-	while (i < ft_strlen(current))
+	while (i < ft_strlen(current) - 2)
 	{
 		if (above == NULL || below == NULL)
 		{
@@ -82,6 +82,7 @@ static bool	map_is_valid(char *above, char *current, char *below, \
 			map_is_closed(above, current, below, i) == false)
 				return (false);
 		}
+		i++;
 	}
 	return (true);
 }
@@ -104,13 +105,9 @@ int	map_validation(t_file_info *file, t_map_info *map, t_error *errme)
 		current = below;
 		below = get_next_line(file->fd);
 		if (map_is_valid(above, current, below, map) == false)
-			exit (0);
+			return (free_3(above, current, below), 0);
 		if (below == NULL)
-		{
-			my_freestr(current);
-			my_freestr(above);
-			break ;
-		}
+			return (free_3(above, current, below), 1);
 	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:26:12 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/06/19 13:14:35 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/06/19 14:38:06 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int		map_validation(t_file_info *file, t_map_info *map, t_error *errme);
 
 /* free */
 void	free_map_struct(t_map_info *map);
+void	free_3(char *str1, char *str2, char *str3);
 
 /* utils */
 void	save_elements(char *row, t_map_info *map);

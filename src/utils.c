@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:32:23 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/06/19 13:13:55 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/06/19 14:25:08 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	initialize_map_info(t_map_info *map)
 {
-	ft_printf("hi\n"); //here
 	map->rows = 0;
 	map->no_texture = NULL;
 	map->so_texture = NULL;
