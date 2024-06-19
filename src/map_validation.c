@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:50:32 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/06/18 17:41:18 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/06/19 13:33:59 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static bool	contains_elements(t_file_info *file, t_map_info *map)
 {
 	char	*row;
 
-	row = "";
+	row = get_next_line(file->fd);
 	while (elements_not_null(map) == false && row != NULL)
 	{
 		save_elements(row, map);
@@ -33,10 +33,10 @@ static bool	contains_valid_chars(char *current, size_t i, t_map_info *map)
 	if (ft_strchr(" 01NOSW", current[i]) == NULL)
 		return (ft_printf("Error\nmap contains invalid characters\n"), false);
 	if (ft_strchr("NOSW", current[i]) && \
-	map->player->orientation == '0')
-		map->player->orientation = current[i];
+	map->player.orientation == '0')
+		map->player.orientation = current[i];
 	if (ft_strchr("NOSW", current[i]) && \
-	map->player->orientation != '0')
+	map->player.orientation != '0')
 		return (ft_printf("Error\nmap contains more than 1 player \
 		starting positions\n"), false);
 	return (true);
@@ -63,6 +63,8 @@ static bool	map_is_valid(char *above, char *current, char *below, \
 
 	i = 0;
 	map->rows++;
+	if (current == NULL)
+		return (true);
 	while (current[i] == ' ')
 		i++;
 	if (current[i] != '1' || current[ft_strlen(current) != '1'])
