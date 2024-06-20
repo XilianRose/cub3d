@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:50:32 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/06/19 14:46:17 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/06/20 18:09:45 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,31 +32,36 @@ static bool	contains_elements(t_file_info *file, t_map_info *map)
 static bool	contains_valid_chars(char *current, size_t i, t_map_info *map)
 {
 	if (ft_strchr(" 01NOSW", current[i]) == NULL)
-		return (ft_printf("Error\nmap contains invalid characters\n"), false);
+		return (printf("Error\nmap contains invalid characters\n"), false);
 	if (ft_strchr("NOSW", current[i]) && \
 	map->player.orientation == '0')
 		map->player.orientation = current[i];
 	if (ft_strchr("NOSW", current[i]) && \
 	map->player.orientation != '0')
-		return (ft_printf("Error\nmap contains more than 1 player \
-		starting positions\n"), false);
+		return (printf("Error\nmap contains more than 1 player starting \
+positions\n"), false);
 	return (true);
 }
 
 static bool	map_is_closed(char *above, char *current, char *below, size_t i)
 {
-	if (current[i] == ' ' && (ft_strchr("1 ", current[i - 1]) == false \
-	|| ft_strchr("1 ", current[i + 1]) == false))
-		return (ft_printf("Error\nmap is not properly closed\n"), false);
-	if (ft_strlen(current) > ft_strlen(above) \
+	if (current[i] == '0' && (current[i - 1] == ' ' \
+	|| current[i + 1] == ' '))
+		return (printf("Error\nmap is not properly closed 1\n"), false);
+	if (above && ft_strlen(current) > ft_strlen(above) \
 	&& i > ft_strlen(above) && current[i] != '1')
-		return (ft_printf("Error\nmap is not properly closed\n"), false);
-	if (ft_strlen(current) > ft_strlen(below) \
+		return (printf("Error\nmap is not properly closed 2\n"), false);
+	if (below && ft_strlen(current) > ft_strlen(below) \
 	&& i > ft_strlen(below) && current[i] != '1')
-		return (ft_printf("Error\nmap is not properly closed\n"), false);
+		return (printf("Error\nmap is not properly closed 3\n"), false);
+	if (above && current[i] == '0' && above[i] == ' ')
+		return (printf("Error\nmap is not properly closed 4\n"), false);
+	if (below && current[i] == '0' && below[i] == ' ')
+		return (printf("Error\nmap is not properly closed 5\n"), false);
 	return (true);
 }
 
+//shorten this
 static bool	map_is_valid(char *above, char *current, char *below, \
 	t_map_info *map)
 {
@@ -68,12 +73,13 @@ static bool	map_is_valid(char *above, char *current, char *below, \
 	while (current[i] == ' ')
 		i++;
 	if (current[i] != '1' || current[ft_strlen(current) - 2] != '1')
-		return (false);
+		return (printf("Error\nmap is not properly closed\n"), false);
 	while (i < ft_strlen(current) - 2)
 	{
 		if (above == NULL || below == NULL)
 		{
-			if (ft_strchr("1 ", current[i]) == false)
+			if (ft_strchr("1 ", current[i]) == NULL || \
+			map_is_closed(above, current, below, i) == false)
 				return (false);
 		}
 		else
@@ -90,24 +96,28 @@ static bool	map_is_valid(char *above, char *current, char *below, \
 int	map_validation(t_file_info *file, t_map_info *map, t_error *errme)
 {
 	char	*above;
-	char	*current;
+	char	*curr;
 	char	*below;
 
 	above = NULL;
-	current = NULL;
+	curr = NULL;
 	below = NULL;
 	if (contains_elements(file, map) != true)
 		exit_wrapper(errme->map0);
 	while (1)
 	{
 		my_freestr(above);
-		above = current;
-		current = below;
+		above = curr;
+		curr = below;
 		below = get_next_line(file->fd);
-		if (map_is_valid(above, current, below, map) == false)
-			return (free_3(above, current, below), 0);
+		if (map_is_valid(above, curr, below, map) == false)
+			return (free_3(above, curr, below), 0);
 		if (below == NULL)
-			return (free_3(above, current, below), 1);
+		{
+			if (map->player.orientation == 0)
+				return (ft_printf(errme->map4), free_3(above, curr, below), 0);
+			return (free_3(above, curr, below), 1);
+		}
 	}
 	return (1);
 }
