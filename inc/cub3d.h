@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:26:12 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/06/21 12:03:45 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/06/21 14:57:43 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,15 @@
 #include "../libft/inc/libft.h"
 #include "../MLX42/include/MLX42/MLX42.h"
 
-#define FILE_OK 1
-#define FILE_NV 0
+#define FILE_OK 0
+#define FILE_NV 1
 
-#define MAP_OK 1
-#define MAP_NV 0
+#define MAP_OK 0
+#define MAP_NV 1
+
+#define WIDTH 1900
+#define HEIGHT 1900
+#define TILE_SIZE 32
 
 typedef struct s_coordinates
 {
@@ -46,7 +50,6 @@ typedef struct s_map_info
 	char			*ea_texture;
 	char			*f_color;
 	char			*c_color;
-	t_player_info	player;
 }	t_map_info;
 
 typedef struct s_file_info
@@ -73,7 +76,9 @@ typedef struct s_game_info
 	t_error			errme;
 	t_file_info		file;
 	t_map_info		map;
+	t_player_info	player;
 	mlx_t			*mlx;
+	mlx_image_t		*image;
 }	t_game_info;
 
 /* map validation */
@@ -87,6 +92,6 @@ void	free_3(char *str1, char *str2, char *str3);
 void	save_elements(char *row, t_map_info *map);
 bool	elements_not_null(t_map_info *map);
 
-void	initialize_map_info(t_map_info *map);
+void	initialize_map_info(t_game_info *game);
 void	error_message(t_error *errme);
 void	exit_wrapper(char *str);

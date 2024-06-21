@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:50:32 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/06/21 12:10:50 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/06/21 15:05:05 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static bool	contains_elements(t_file_info *file, t_map_info *map)
 	}
 	my_freestr(row);
 	if (elements_not_null(map) == false)
-		return (free_map_struct(map), false);
+		return (false);
 	else
 		return (true);
 }
@@ -34,16 +34,21 @@ static bool	contains_valid_chars(char *current, size_t i, t_game_info *game)
 	if (ft_strchr(" 01NOSW", current[i]) == NULL)
 		return (ft_printf(game->errme.map2), false);
 	if (ft_strchr("NOSW", current[i]) && \
-	game->map.player.orientation == '0')
-		game->map.player.orientation = current[i];
-	if (ft_strchr("NOSW", current[i]) && \
-	game->map.player.orientation != '0')
+	game->player.orientation == 0)
+		game->player.orientation = current[i];
+	else if (ft_strchr("NOSW", current[i]) && \
+	game->player.orientation != 0)
 		return (ft_printf(game->errme.map3), false);
 	return (true);
 }
 
 static bool	map_is_closed(char *above, char *current, char *below, size_t i)
 {
+	if (above == NULL || below == NULL)
+	{
+		if (ft_strchr("1 ", current[i]) == NULL)
+			return (false);
+	}
 	if (current[i] == '0' && (current[i - 1] == ' ' \
 	|| current[i + 1] == ' '))
 		return (false);
@@ -70,18 +75,10 @@ static bool	map_is_valid(char *above, char *current, char *below, \
 		return (true);
 	while (i < ft_strlen(current) - 2)
 	{
-		if (above == NULL || below == NULL)
-		{
-			if (ft_strchr("1 ", current[i]) == NULL || \
-			map_is_closed(above, current, below, i) == false)
-				return (ft_printf(game->errme.map1, false));
-		}
-		else
-		{
-			if (contains_valid_chars(current, i, game) == false || \
-			map_is_closed(above, current, below, i) == false)
-				return (ft_printf(game->errme.map1, false));
-		}
+		if (contains_valid_chars(current, i, game) == false)
+			return (false);
+		if (map_is_closed(above, current, below, i) == false)
+			return (ft_printf(game->errme.map1, false));
 		i++;
 	}
 	return (true);
@@ -97,7 +94,7 @@ int	map_validation(t_game_info *game, t_error *errme)
 	curr = NULL;
 	below = NULL;
 	if (contains_elements(&game->file, &game->map) != true)
-		exit_wrapper(errme->map0);
+		return (ft_printf(errme->map0), MAP_NV);
 	while (1)
 	{
 		my_freestr(above);
@@ -105,13 +102,13 @@ int	map_validation(t_game_info *game, t_error *errme)
 		curr = below;
 		below = get_next_line(game->file.fd);
 		if (map_is_valid(above, curr, below, game) == false)
-			return (free_3(above, curr, below), 0);
+			return (free_3(above, curr, below), MAP_NV);
 		if (below == NULL)
 		{
-			if (game->map.player.orientation == 0)
-				return (ft_printf(errme->map4), free_3(above, curr, below), 0);
-			return (free_3(above, curr, below), 1);
+			if (game->player.orientation == 0)
+				return (ft_printf(errme->map4), free_3(above, curr, below), 1);
+			return (free_3(above, curr, below), MAP_OK);
 		}
 	}
-	return (1);
+	return (MAP_OK);
 }

@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:14:01 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/06/21 12:05:15 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/06/21 15:02:55 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ int	main(int argc, char **argv)
 	error_message(&game.errme);
 	if (file_validation(&game.file, &game.errme) == FILE_NV)
 		return (FILE_NV);
-	initialize_map_info(&game.map);
+	initialize_map_info(&game);
 	if (map_validation(&game, &game.errme) == MAP_NV)
-		return (free_map_struct(&game.map), MAP_NV);
-	return (free_map_struct(&game.map), 1);
+		return (free_map_struct(&game.map), 1);
+	return (free_map_struct(&game.map), 0);
 }

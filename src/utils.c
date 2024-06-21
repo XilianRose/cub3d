@@ -6,25 +6,25 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:32:23 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/06/21 11:58:39 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/06/21 13:09:36 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	initialize_map_info(t_map_info *map)
+void	initialize_map_info(t_game_info *game)
 {
-	map->width = 0;
-	map->height = 0;
-	map->no_texture = NULL;
-	map->so_texture = NULL;
-	map->we_texture = NULL;
-	map->ea_texture = NULL;
-	map->f_color = NULL;
-	map->c_color = NULL;
-	map->player.orientation = 0;
-	map->player.position.x = 0;
-	map->player.position.y = 0;
+	game->map.width = 0;
+	game->map.height = 0;
+	game->map.no_texture = NULL;
+	game->map.so_texture = NULL;
+	game->map.we_texture = NULL;
+	game->map.ea_texture = NULL;
+	game->map.f_color = NULL;
+	game->map.c_color = NULL;
+	game->player.orientation = 0;
+	game->player.position.x = 0;
+	game->player.position.y = 0;
 }
 
 void	error_message(t_error *errme)
