@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:26:12 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/06/21 14:57:43 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/06/21 15:10:38 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,9 @@ typedef struct s_game_info
 
 /* map validation */
 int		map_validation(t_game_info *game, t_error *errme);
+
+/* window management */
+int32_t	window_management(t_game_info *game);
 
 /* free */
 void	free_map_struct(t_map_info *map);

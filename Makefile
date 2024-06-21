@@ -6,7 +6,7 @@
 #    By: mstegema <mstegema@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/02/10 14:19:38 by mstegema      #+#    #+#                  #
-#    Updated: 2024/06/18 17:48:59 by mstegema      ########   odam.nl          #
+#    Updated: 2024/06/21 15:11:18 by mstegema      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ BINDIR	= bin
 SRCS	= $(SRCDIR)/main.c \
 	$(SRCDIR)/map_validation.c \
 	$(SRCDIR)/map_validation_utils.c \
+	$(SRCDIR)/window_management.c \
 	$(SRCDIR)/free.c \
 	$(SRCDIR)/utils.c
 # objects
