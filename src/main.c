@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:14:01 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/06/19 17:09:00 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/06/21 12:05:15 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,15 @@ static int	file_validation(t_file_info *file, t_error *errme)
 
 int	main(int argc, char **argv)
 {
-	t_file_info	file;
-	t_map_info	map;
-	t_error		errme;
+	t_game_info	game;
 
-	file.argc = argc;
-	file.argv = argv;
-	error_message(&errme);
-	if (file_validation(&file, &errme) == FILE_NV)
+	game.file.argc = argc;
+	game.file.argv = argv;
+	error_message(&game.errme);
+	if (file_validation(&game.file, &game.errme) == FILE_NV)
 		return (FILE_NV);
-	initialize_map_info(&map);
-	if (map_validation(&file, &map, &errme) == MAP_NV)
-		return (free_map_struct(&map), MAP_NV);
-	return (free_map_struct(&map), 1);
+	initialize_map_info(&game.map);
+	if (map_validation(&game, &game.errme) == MAP_NV)
+		return (free_map_struct(&game.map), MAP_NV);
+	return (free_map_struct(&game.map), 1);
 }

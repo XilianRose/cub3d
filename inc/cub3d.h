@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:26:12 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/06/19 14:38:06 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/06/21 12:03:45 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,11 @@ typedef struct s_player_info
 	t_coordinates	position;
 }	t_player_info;
 
-typedef struct s_file_info
-{
-	int				argc;
-	char			**argv;
-	int				fd;
-}	t_file_info;
-
 typedef struct s_map_info
 {
-	int				rows;
+	int				width;
+	int				height;
+	char			**grid;
 	char			*no_texture;
 	char			*so_texture;
 	char			*we_texture;
@@ -54,10 +49,12 @@ typedef struct s_map_info
 	t_player_info	player;
 }	t_map_info;
 
-typedef struct s_game_info
+typedef struct s_file_info
 {
-	mlx_t			*mlx;
-}	t_game_info;
+	int				argc;
+	char			**argv;
+	int				fd;
+}	t_file_info;
 
 typedef struct s_error
 {
@@ -71,8 +68,16 @@ typedef struct s_error
 	char			*map4;
 }	t_error;
 
+typedef struct s_game_info
+{
+	t_error			errme;
+	t_file_info		file;
+	t_map_info		map;
+	mlx_t			*mlx;
+}	t_game_info;
+
 /* map validation */
-int		map_validation(t_file_info *file, t_map_info *map, t_error *errme);
+int		map_validation(t_game_info *game, t_error *errme);
 
 /* free */
 void	free_map_struct(t_map_info *map);
