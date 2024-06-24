@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:26:12 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/06/21 15:10:38 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/06/24 13:25:41 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ typedef struct s_player_info
 
 typedef struct s_map_info
 {
-	int				width;
-	int				height;
-	char			**grid;
+	size_t			width;
+	size_t			height;
+	char			**layout;
 	char			*no_texture;
 	char			*so_texture;
 	char			*we_texture;
@@ -69,6 +69,7 @@ typedef struct s_error
 	char			*map2;
 	char			*map3;
 	char			*map4;
+	char			*mem0;
 }	t_error;
 
 typedef struct s_game_info
@@ -83,6 +84,9 @@ typedef struct s_game_info
 
 /* map validation */
 int		map_validation(t_game_info *game, t_error *errme);
+void	save_elements(char *row, t_map_info *map);
+char	**save_layout(char *row, t_map_info *map);
+bool	elements_not_null(t_map_info *map);
 
 /* window management */
 int32_t	window_management(t_game_info *game);
@@ -92,9 +96,7 @@ void	free_map_struct(t_map_info *map);
 void	free_3(char *str1, char *str2, char *str3);
 
 /* utils */
-void	save_elements(char *row, t_map_info *map);
-bool	elements_not_null(t_map_info *map);
-
+void	*realloc_arr(void *ptr, size_t size);
 void	initialize_map_info(t_game_info *game);
 void	error_message(t_error *errme);
 void	exit_wrapper(char *str);

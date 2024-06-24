@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:50:32 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/06/18 14:35:19 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/06/24 14:42:06 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,21 @@ void	save_elements(char *row, t_map_info *map)
 	else
 		my_freestr(row);
 	return ;
+}
+
+char	**save_layout(char *row, t_map_info *map)
+{
+	char	**temp;
+
+	temp = NULL;
+	if (row == NULL)
+		return (NULL);
+	temp = (char **)realloc_arr(map->layout, sizeof(char *) * (map->height + 1));
+	if (temp == NULL)
+		return (NULL);
+	temp[map->height - 1] = row;
+	map->layout = temp;
+	return (map->layout);
 }
 
 bool	elements_not_null(t_map_info *map)

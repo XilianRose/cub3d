@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:50:32 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/06/21 15:05:05 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/06/24 13:19:44 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,17 @@ static bool	map_is_valid(char *above, char *current, char *below, \
 		if (contains_valid_chars(current, i, game) == false)
 			return (false);
 		if (map_is_closed(above, current, below, i) == false)
-			return (ft_printf(game->errme.map1, false));
+			return (ft_printf(game->errme.map1), false);
 		i++;
+	}
+	game->map.height++;
+	if (ft_strlen(current) > game->map.width)
+		game->map.width = ft_strlen(current);
+	if (save_layout(current, &game->map) == NULL)
+	{
+		my_freearray(game->map.layout);
+		ft_printf(game->errme.mem0);
+		return (false);
 	}
 	return (true);
 }
@@ -97,7 +106,6 @@ int	map_validation(t_game_info *game, t_error *errme)
 		return (ft_printf(errme->map0), MAP_NV);
 	while (1)
 	{
-		my_freestr(above);
 		above = curr;
 		curr = below;
 		below = get_next_line(game->file.fd);
@@ -107,8 +115,13 @@ int	map_validation(t_game_info *game, t_error *errme)
 		{
 			if (game->player.orientation == 0)
 				return (ft_printf(errme->map4), free_3(above, curr, below), 1);
-			return (free_3(above, curr, below), MAP_OK);
+			return (MAP_OK);
 		}
 	}
 	return (MAP_OK);
 }
+
+			// for (size_t i = 0; i < game->map.height; i++) 
+			// {
+			// 	printf("%s\n", game->map.layout[i]);
+			// }
