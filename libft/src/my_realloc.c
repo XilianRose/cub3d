@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/06 13:59:03 by mstegema      #+#    #+#                 */
-/*   Updated: 2023/04/06 14:30:50 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/06/24 13:14:38 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,24 @@
 void	*my_realloc(void *ptr, size_t size)
 {
 	void	*res;
-	size_t	len;
+	size_t	old_size;
 
 	res = NULL;
-	len = ft_strlen(ptr);
 	if (ptr == NULL)
-		return (ft_calloc(0, size));
+		return (ft_calloc(1, size));
 	else if (size == 0)
 		return (my_freestr(ptr), NULL);
-	res = ft_calloc(0, size);
+	res = ft_calloc(1, size);
 	if (!res)
 		return (NULL);
-	if (size > len)
-		ft_memmove(res, ptr, len);
+	old_size = ft_strlen((char *)ptr) + 1;
+	if (size > old_size)
+		ft_memmove(res, ptr, old_size);
 	else
+	{
 		ft_memmove(res, ptr, size);
-	printf("oud2: %p\n", &ptr);
+		((char *)res)[size - 1] = '\0';
+	}
 	return (my_freestr(ptr), res);
 }
 
