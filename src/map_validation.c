@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:50:32 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/06/24 13:19:44 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/06/25 18:44:37 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,8 +120,3 @@ int	map_validation(t_game_info *game, t_error *errme)
 	}
 	return (MAP_OK);
 }
-
-			// for (size_t i = 0; i < game->map.height; i++) 
-			// {
-			// 	printf("%s\n", game->map.layout[i]);
-			// }
