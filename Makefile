@@ -6,7 +6,7 @@
 #    By: mstegema <mstegema@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/02/10 14:19:38 by mstegema      #+#    #+#                  #
-#    Updated: 2024/06/21 15:11:18 by mstegema      ########   odam.nl          #
+#    Updated: 2024/06/25 18:42:59 by mstegema      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ LIBFT	= libft/bin/libft.a
 MLX42	= MLX42/build/libmlx42.a
 
 ifdef AT_HOME
-LINKS	= -Iinclude -lglfw -L"/opt/homebrew/Cellar/glfw/3.3.8/lib/"
+LINKS	= -Iinclude -lglfw
 else
 LINKS	= -Iinclude -ldl -lglfw -pthread -lm
 endif
@@ -71,10 +71,10 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@$(CC) -c $(CFLAGS) $(HEADER) $< -o $@
 	@echo "Compiling: $(PURPLE)$<$(NC)"
 
-debughome:
+debugathome: fclean
 	$(MAKE) AT_HOME=1 DEBUG=1
 
-debug:
+debug: fclean
 	$(MAKE) DEBUG=1
 
 home:
@@ -93,4 +93,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re home debug debughome
+.PHONY: all clean fclean re home debug debugathome
