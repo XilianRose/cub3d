@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:26:12 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/06/26 16:40:21 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/06/27 15:50:04 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,24 @@
 
 typedef struct s_coordinates
 {
-	int				x;
-	int				y;
+	double				x;
+	double				y;
 }	t_coordinates;
+
+typedef struct s_ray
+{
+	t_coordinates	position;
+	t_coordinates	dir;
+	t_coordinates	camera;
+}	t_ray;
 
 typedef struct s_player_info
 {
 	char			orientation;
-	t_coordinates	position;
+	t_coordinates	start_position;
+	t_coordinates	dir;
+	t_coordinates	plane;
+	t_ray			ray;
 }	t_player_info;
 
 typedef struct s_map_info
