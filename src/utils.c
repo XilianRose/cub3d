@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:32:23 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/06/27 14:54:21 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/06/27 15:54:11 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,12 @@ void	initialize_map_info(t_game_info *game)
 	game->map.f_color = NULL;
 	game->map.c_color = NULL;
 	game->player.orientation = 0;
-	game->player.position.x = 0;
-	game->player.position.y = 0;
+	game->player.start_position.x = 0;
+	game->player.start_position.y = 0;
+	game->player.dir.x = -1;
+	game->player.dir.y = 0;
+	game->player.plane.x = 0;
+	game->player.plane.y = 0.66;
 }
 
 void	error_message(t_error *errme)
