@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:32:23 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/06/26 16:52:05 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/06/27 14:54:21 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	**realloc_arr(char **ptr, size_t size)
 	else
 	{
 		ft_memmove(res, ptr, sizeof(char *) * (size));
-		((char *)res)[size - 1] = '\0';
+		res[size - 1] = 0;
 	}
 	return (free(ptr), res);
 }

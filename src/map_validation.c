@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:50:32 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/06/25 18:44:37 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/06/27 14:52:30 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ static bool	map_is_valid(char *above, char *current, char *below, \
 	game->map.height++;
 	if (ft_strlen(current) > game->map.width)
 		game->map.width = ft_strlen(current);
-	if (save_layout(current, &game->map) == NULL)
+	game->map.layout = save_layout(current, &game->map);
+	if (!game->map.layout)
 	{
 		my_freearray(game->map.layout);
 		ft_printf(game->errme.mem0);
