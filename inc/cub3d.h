@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:26:12 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/06/28 15:20:03 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/06/28 19:41:30 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 #define WIDTH 1600
 #define HEIGHT 900
-#define TILE_SIZE 4
+#define TILE_SIZE 8
 
 typedef struct s_coordinates
 {
