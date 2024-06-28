@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:26:12 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/06/27 15:50:04 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/06/28 15:20:03 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
 #define MAP_OK 0
 #define MAP_NV 1
 
-#define WIDTH 1900
-#define HEIGHT 1900
-#define TILE_SIZE 32
+#define WIDTH 1600
+#define HEIGHT 900
+#define TILE_SIZE 4
 
 typedef struct s_coordinates
 {
@@ -60,6 +60,7 @@ typedef struct s_map_info
 	char			*ea_texture;
 	char			*f_color;
 	char			*c_color;
+	mlx_image_t		*minimap;
 }	t_map_info;
 
 typedef struct s_file_info
@@ -101,6 +102,9 @@ bool	elements_not_null(t_map_info *map);
 /* window management */
 int32_t	window_management(t_game_info *game);
 
+/* rendering */
+int32_t	render_minimap(t_game_info *game);
+
 /* free */
 void	free_map_struct(t_map_info *map);
 void	free_3(char *str1, char *str2, char *str3);
@@ -109,4 +113,5 @@ void	free_3(char *str1, char *str2, char *str3);
 char	**realloc_arr(char **ptr, size_t size);
 void	initialize_map_info(t_game_info *game);
 void	error_message(t_error *errme);
+int32_t	mlx_error_wrapper(mlx_t	*mlx);
 void	exit_wrapper(char *str);

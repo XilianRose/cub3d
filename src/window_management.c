@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/21 11:28:59 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/06/21 15:15:17 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/06/28 15:21:18 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	loophook(void *param)
 	mlx_delete_image(game->mlx, game->image);
 	game->image = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	if (!game->image || \
-		mlx_image_to_window(game->mlx, game->image, 0, 0) == -1)
+	mlx_image_to_window(game->mlx, game->image, 0, 0) == -1)
 	{
 		error(game->mlx);
 		return ;
@@ -73,6 +73,8 @@ int32_t	window_management(t_game_info *game)
 	game->mlx = mlx;
 	mlx_loop_hook(mlx, &loophook, game);
 	mlx_key_hook(mlx, &keyhook, game);
+	if (render_minimap(game) == EXIT_FAILURE)
+		return (mlx_terminate(game->mlx), EXIT_FAILURE);
 	mlx_loop(game->mlx);
 	mlx_close_window(game->mlx);
 	return (mlx_terminate(game->mlx), EXIT_SUCCESS);

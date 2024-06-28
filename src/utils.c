@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:32:23 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/06/27 15:54:11 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/06/28 12:53:27 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,14 @@ void	error_message(t_error *errme)
 	errme->map4 = "Error\nmap contains no player starting positions\n";
 	errme->mem0 = "Error\nmalloc failed\n";
 	return ;
+}
+
+int32_t	mlx_error_wrapper(mlx_t	*mlx)
+{
+	if (mlx)
+		mlx_close_window(mlx);
+	ft_putstr_fd((char *) mlx_strerror(mlx_errno), 2);
+	return (EXIT_FAILURE);
 }
 
 void	exit_wrapper(char *str)
