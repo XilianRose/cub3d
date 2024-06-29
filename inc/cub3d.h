@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:26:12 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/06/28 19:41:30 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/06/29 15:50:55 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,9 @@ typedef struct s_ray
 
 typedef struct s_player_info
 {
+	mlx_image_t		*image;
 	char			orientation;
-	t_coordinates	start_position;
+	t_coordinates	position;
 	t_coordinates	dir;
 	t_coordinates	plane;
 	t_ray			ray;
@@ -104,6 +105,7 @@ int32_t	window_management(t_game_info *game);
 
 /* rendering */
 int32_t	render_minimap(t_game_info *game);
+int32_t	render_player(t_game_info *game);
 
 /* free */
 void	free_map_struct(t_map_info *map);

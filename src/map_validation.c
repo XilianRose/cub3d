@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:50:32 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/06/27 14:52:30 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/06/29 16:01:40 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,11 @@ static bool	contains_valid_chars(char *current, size_t i, t_game_info *game)
 		return (ft_printf(game->errme.map2), false);
 	if (ft_strchr("NOSW", current[i]) && \
 	game->player.orientation == 0)
+	{
 		game->player.orientation = current[i];
+		game->player.position.x = i;
+		game->player.position.y = game->map.height;
+	}
 	else if (ft_strchr("NOSW", current[i]) && \
 	game->player.orientation != 0)
 		return (ft_printf(game->errme.map3), false);

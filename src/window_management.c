@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/21 11:28:59 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/06/28 15:21:18 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/06/29 15:51:26 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ int32_t	window_management(t_game_info *game)
 	game->mlx = mlx;
 	mlx_loop_hook(mlx, &loophook, game);
 	mlx_key_hook(mlx, &keyhook, game);
-	if (render_minimap(game) == EXIT_FAILURE)
+	if (render_minimap(game) == EXIT_FAILURE \
+	|| render_player(game) == EXIT_FAILURE)
 		return (mlx_terminate(game->mlx), EXIT_FAILURE);
 	mlx_loop(game->mlx);
 	mlx_close_window(game->mlx);
