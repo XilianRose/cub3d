@@ -6,7 +6,7 @@
 #    By: mstegema <mstegema@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/02/10 14:19:38 by mstegema      #+#    #+#                  #
-#    Updated: 2024/06/28 19:34:10 by mstegema      ########   odam.nl          #
+#    Updated: 2024/06/29 16:18:57 by mstegema      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRCS	= $(SRCDIR)/main.c \
 	$(SRCDIR)/map_validation_utils.c \
 	$(SRCDIR)/window_management.c \
 	$(SRCDIR)/rendering.c \
+	$(SRCDIR)/player_movement.c \
 	$(SRCDIR)/free.c \
 	$(SRCDIR)/utils.c
 # objects

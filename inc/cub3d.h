@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:26:12 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/06/29 15:50:55 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/06/30 22:37:23 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,12 @@ int32_t	window_management(t_game_info *game);
 /* rendering */
 int32_t	render_minimap(t_game_info *game);
 int32_t	render_player(t_game_info *game);
+
+/* player movement*/
+void	move_up(t_game_info *game);
+void	move_down(t_game_info *game);
+void	move_left(t_game_info *game);
+void	move_right(t_game_info *game);
 
 /* free */
 void	free_map_struct(t_map_info *map);

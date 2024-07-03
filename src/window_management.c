@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/21 11:28:59 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/06/29 15:51:26 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/06/30 22:30:42 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,16 @@ static void	keyhook(mlx_key_data_t keydata, void *param)
 			game->mlx->height - 32);
 	if (((keydata.key == MLX_KEY_UP) || (keydata.key == MLX_KEY_W))
 		&& (keydata.action == MLX_RELEASE))
-		return ;
+		move_up(game);
 	if (((keydata.key == MLX_KEY_DOWN) || (keydata.key == MLX_KEY_S))
 		&& (keydata.action == MLX_RELEASE))
-		return ;
+		move_down(game);
 	if (((keydata.key == MLX_KEY_LEFT) || (keydata.key == MLX_KEY_A))
 		&& (keydata.action == MLX_RELEASE))
-		return ;
+		move_left(game);
 	if (((keydata.key == MLX_KEY_RIGHT) || (keydata.key == MLX_KEY_D))
 		&& (keydata.action == MLX_RELEASE))
-		return ;
+		move_right(game);
 }
 
 int32_t	window_management(t_game_info *game)
@@ -71,11 +71,11 @@ int32_t	window_management(t_game_info *game)
 	if (!mlx)
 		return (error(NULL));
 	game->mlx = mlx;
-	mlx_loop_hook(mlx, &loophook, game);
-	mlx_key_hook(mlx, &keyhook, game);
 	if (render_minimap(game) == EXIT_FAILURE \
 	|| render_player(game) == EXIT_FAILURE)
 		return (mlx_terminate(game->mlx), EXIT_FAILURE);
+	mlx_loop_hook(mlx, &loophook, game);
+	mlx_key_hook(mlx, &keyhook, game);
 	mlx_loop(game->mlx);
 	mlx_close_window(game->mlx);
 	return (mlx_terminate(game->mlx), EXIT_SUCCESS);
