@@ -6,11 +6,25 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/28 11:14:01 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/04 13:15:26 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/04 17:50:01 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	put_line(int x, t_ray *ray, unsigned int color, \
+mlx_image_t *image)
+{
+	unsigned int	i;
+
+	i = ray->line_start;
+	while (i != ray->line_end)
+	{
+		mlx_put_pixel(image, x, i, color);
+		i++;
+	}
+	return ;
+}
 
 static void	put_tile(mlx_image_t *image, t_coordinates *coord, \
 unsigned int color, int ratio)
@@ -35,18 +49,18 @@ unsigned int color, int ratio)
 
 int32_t	render_player(t_game_info *game)
 {
-	t_player_info	player;
+	t_player_info	*player;
 	t_map_info		map;
 	t_coordinates	coord;
 
 	coord.y = 0;
 	coord.x = 0;
-	player = game->player;
+	player = &game->player;
 	map = game->map;
-	player.image = mlx_new_image(game->mlx, map.ratio, map.ratio);
-	put_tile(player.image, &coord, 0x80FFFFFF, map.ratio);
-	if (mlx_image_to_window(game->mlx, player.image, player.position.x * \
-	map.ratio + 10, player.position.y * map.ratio + 10) == -1)
+	player->image = mlx_new_image(game->mlx, map.ratio, map.ratio);
+	put_tile(player->image, &coord, 0x80FFFFFF, map.ratio);
+	if (mlx_image_to_window(game->mlx, player->image, \
+	player->position.x * map.ratio + 10, player->position.y * map.ratio + 10) == -1)
 		return (mlx_error_wrapper(game->mlx), EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
@@ -68,7 +82,7 @@ int32_t	render_minimap(t_game_info *game)
 		{
 			if (map->layout[(int)coord.y][(int)coord.x] == '1')
 				put_tile(map->minimap, &coord, 0xFFFFFFCC, map->ratio);
-			else if (ft_strchr("0NOSW", \
+			else if (ft_strchr("0NESW", \
 			map->layout[(int)coord.y][(int)coord.x]) != NULL)
 				put_tile(map->minimap, &coord, 0xFFFFFF80, map->ratio);
 			coord.x++;

@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/21 11:28:59 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/06/30 22:30:42 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/03 17:13:53 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static void	loophook(void *param)
 	game = param;
 	mlx_delete_image(game->mlx, game->image);
 	game->image = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	raycast(&game->player, &game->map, game->image);
 	if (!game->image || \
 	mlx_image_to_window(game->mlx, game->image, 0, 0) == -1)
 	{
