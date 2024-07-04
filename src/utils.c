@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:32:23 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/03 16:23:07 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/04 16:32:10 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,29 +41,29 @@ char	**realloc_arr(char **ptr, size_t size)
 
 void	initialize_ray_info(t_game_info *game)
 {
-	game->player.ray.dir.x = -1;
-	game->player.ray.dir.y = 0;
 	game->player.ray.plane.x = 0;
-	game->player.ray.plane.y = 0.66;
+	game->player.ray.plane.y = 0.9;
+	game->player.dir.x = -1;
+	game->player.dir.y = 0;
 	// if (game->player.orientation == 'W')
 	// {
-	// 	game->player.ray.dir.x = -1;
-	// 	game->player.ray.dir.y = 0;
+	// 	game->player.dir.x = -1;
+	// 	game->player.dir.y = 0;
 	// }
 	// if (game->player.orientation == 'E')
 	// {
-	// 	game->player.ray.dir.x = 1;
-	// 	game->player.ray.dir.y = 0;
+	// 	game->player.dir.x = 1;
+	// 	game->player.dir.y = 0;
 	// }
 	// if (game->player.orientation == 'S')
 	// {
-	// 	game->player.ray.dir.x = 0;
-	// 	game->player.ray.dir.y = -1;
+	// 	game->player.dir.x = 0;
+	// 	game->player.dir.y = -1;
 	// }
 	// if (game->player.orientation == 'N')
 	// {
-	// 	game->player.ray.dir.x = 0;
-	// 	game->player.ray.dir.y = 1;
+	// 	game->player.dir.x = 0;
+	// 	game->player.dir.y = 1;
 	// }
 	return ;
 }

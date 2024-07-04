@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:26:12 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/04 14:14:04 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/04 17:52:58 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 #define WIDTH 1600
 #define HEIGHT 900
 
-#define NS_SIDE 0
-#define EW_SIDE 1
+#define EW_SIDE 0
+#define NS_SIDE 1
 
 typedef struct s_coordinates
 {
@@ -43,6 +43,8 @@ typedef struct s_ray
 	t_coordinates	side_dist;
 	t_coordinates	delta_dist;
 	int				side;
+	int				line_start;
+	unsigned int	line_end;
 	double			wall_dist;
 }	t_ray;
 
@@ -50,6 +52,7 @@ typedef struct s_player_info
 {
 	mlx_image_t		*image;
 	char			orientation;
+	t_coordinates	dir;
 	t_coordinates	position;
 	t_coordinates	step;
 	t_ray			ray;
@@ -112,11 +115,15 @@ int32_t	window_management(t_game_info *game);
 /* rendering */
 int32_t	render_minimap(t_game_info *game);
 int32_t	render_player(t_game_info *game);
-void	put_line(int x, int *draw_pixels, unsigned int color, \
+void	put_line(int x, t_ray *ray, unsigned int color, \
 	mlx_image_t *image);
-void	raycast(t_player_info *player, t_map_info *map, mlx_image_t *image);
 
 double	calculate_resize(t_map_info *map);
+
+/* raycast */
+void	raycast(t_player_info *player, t_map_info *map, mlx_image_t *image);
+
+void	initialize_ray_info(t_game_info *game);
 
 /* player movement*/
 void	move_up(t_game_info *game);

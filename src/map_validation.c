@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:50:32 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/04 13:46:29 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/04 14:21:28 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,16 @@ static bool	contains_elements(t_file_info *file, t_map_info *map)
 
 static bool	contains_valid_chars(char *current, size_t i, t_game_info *game)
 {
-	if (ft_strchr(" 01NOSW", current[i]) == NULL)
+	if (ft_strchr(" 01NESW", current[i]) == NULL)
 		return (ft_printf(game->errme.map2), false);
-	if (ft_strchr("NOSW", current[i]) && \
+	if (ft_strchr("NESW", current[i]) && \
 	game->player.orientation == 0)
 	{
 		game->player.orientation = current[i];
 		game->player.position.x = i;
 		game->player.position.y = game->map.height;
 	}
-	else if (ft_strchr("NOSW", current[i]) && \
+	else if (ft_strchr("NESW", current[i]) && \
 	game->player.orientation != 0)
 		return (ft_printf(game->errme.map3), false);
 	return (true);

@@ -6,28 +6,28 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/27 15:08:51 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/03 17:23:28 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/04 17:48:13 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <math.h>
 
-void	calculate_height_distance(t_player_info *player, int draw_pixels[2])
+void	calculate_height_distance(t_player_info *player)
 {
 	int	line_height;
 
-	if (player->ray.side == NS_SIDE)
+	if (player->ray.side == EW_SIDE)
 		player->ray.wall_dist = player->ray.side_dist.x - player->ray.delta_dist.x;
 	else
 		player->ray.wall_dist = player->ray.side_dist.y - player->ray.delta_dist.y;
-	line_height = (int) HEIGHT / player->ray.wall_dist;
-	draw_pixels[0] = (-line_height / 2) + (HEIGHT / 2);
-	if (draw_pixels[0] < 0)
-		draw_pixels[0] = 0;
-	draw_pixels[1] = (line_height / 2) + (HEIGHT / 2);
-	if (draw_pixels[1] >= HEIGHT)
-		draw_pixels[1] = HEIGHT - 1;
+	line_height = HEIGHT / player->ray.wall_dist;
+	player->ray.line_start = (-line_height / 2) + (HEIGHT / 2);
+	if (player->ray.line_start < 0)
+		player->ray.line_start = 0;
+	player->ray.line_end = (line_height / 2) + (HEIGHT / 2);
+	if (player->ray.line_end >= HEIGHT)
+		player->ray.line_end = HEIGHT - 1;
 	return ;
 }
 
@@ -59,27 +59,22 @@ void	calculate_step(t_player_info *player)
 	}
 }
 
-void	calculate_ray_direction(t_player_info *player)
+void	calculate_ray_direction(t_player_info *player, int x)
 {
 	t_ray	*ray;
-	int		x;
 
 	ray = &player->ray;
-	x = 0;
-	while (x < WIDTH)
-	{
-		ray->camera.x = 2 * x / (double) WIDTH - 1;
-		ray->dir.x = ray->dir.x + ray->plane.x * ray->camera.x;
-		ray->dir.y = ray->dir.y + ray->plane.y * ray->camera.x;
-	}
+	ray->camera.x = 2 * x / (double) WIDTH - 1;
+	ray->dir.x = player->dir.x + ray->plane.x * ray->camera.x;
+	ray->dir.y = player->dir.y + ray->plane.y * ray->camera.x;
 	if (ray->dir.x == 0)
 		ray->delta_dist.x = 1e30;
 	else
-		ray->delta_dist.x = fabs(1 / ray->dir.x);
+	ray->delta_dist.x = fabs(1 / ray->dir.x);
 	if (ray->dir.y == 0)
 		ray->delta_dist.y = 1e30;
 	else
-		ray->delta_dist.y = fabs(1 / ray->dir.y);
+	ray->delta_dist.y = fabs(1 / ray->dir.y);
 }
 
 void	dda(t_player_info *player, t_map_info *map)
@@ -97,13 +92,13 @@ void	dda(t_player_info *player, t_map_info *map)
 		{
 			player->ray.side_dist.x += player->ray.delta_dist.x;
 			map_x += player->step.x;
-			player->ray.side = NS_SIDE;
+			player->ray.side = EW_SIDE;
 		}
 		else
 		{
 			player->ray.side_dist.y += player->ray.delta_dist.y;
 			map_y += player->step.y;
-			player->ray.side = EW_SIDE;
+			player->ray.side = NS_SIDE;
 		}
 		if (map->layout[map_y][map_x] == '1')
 			hit = true;
@@ -113,20 +108,20 @@ void	dda(t_player_info *player, t_map_info *map)
 void	raycast(t_player_info *player, t_map_info *map, mlx_image_t *image)
 {
 	int				x;
-	int				draw_pixels[2];
 	unsigned int	color;
 
 	x = 0;
-	color = 0xFF000000;
+	color = 0xff0000ff;
 	while (x < WIDTH)
 	{
-		calculate_ray_direction(player);
+		calculate_ray_direction(player, x);
 		calculate_step(player);
 		dda(player, map);
-		calculate_height_distance(player, draw_pixels);
+		calculate_height_distance(player);
 		if (player->ray.side == EW_SIDE)
-			color = color / 2;
-		put_line(x, draw_pixels, color, image);
+			put_line(x, &player->ray, color, image);
+		else
+			put_line(x, &player->ray, color / 3, image);
 		x++;
 	}
 }
