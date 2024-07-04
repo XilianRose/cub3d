@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:26:12 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/03 17:12:44 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/04 14:14:04 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 
 #define WIDTH 1600
 #define HEIGHT 900
-#define TILE_SIZE 8
 
 #define NS_SIDE 0
 #define EW_SIDE 1
@@ -68,6 +67,7 @@ typedef struct s_map_info
 	char			*f_color;
 	char			*c_color;
 	mlx_image_t		*minimap;
+	int				ratio;
 }	t_map_info;
 
 typedef struct s_file_info
@@ -116,6 +116,8 @@ void	put_line(int x, int *draw_pixels, unsigned int color, \
 	mlx_image_t *image);
 void	raycast(t_player_info *player, t_map_info *map, mlx_image_t *image);
 
+double	calculate_resize(t_map_info *map);
+
 /* player movement*/
 void	move_up(t_game_info *game);
 void	move_down(t_game_info *game);
@@ -124,7 +126,6 @@ void	move_right(t_game_info *game);
 
 /* free */
 void	free_map_struct(t_map_info *map);
-void	free_3(char *str1, char *str2, char *str3);
 
 /* utils */
 char	**realloc_arr(char **ptr, size_t size);
