@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:26:12 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/06/30 22:37:23 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/04 11:22:48 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_map_info
 	char			*f_color;
 	char			*c_color;
 	mlx_image_t		*minimap;
+	int				ratio;
 }	t_map_info;
 
 typedef struct s_file_info
@@ -123,3 +124,4 @@ void	initialize_map_info(t_game_info *game);
 void	error_message(t_error *errme);
 int32_t	mlx_error_wrapper(mlx_t	*mlx);
 void	exit_wrapper(char *str);
+bool	resize_map(t_map_info *map);
