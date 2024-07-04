@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:26:12 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/04 13:21:49 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/04 13:47:33 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,6 @@ void	move_right(t_game_info *game);
 
 /* free */
 void	free_map_struct(t_map_info *map);
-void	free_3(char *str1, char *str2, char *str3);
 
 /* utils */
 char	**realloc_arr(char **ptr, size_t size);
