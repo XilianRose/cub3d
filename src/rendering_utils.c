@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/04 10:52:04 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/04 11:32:04 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/04 13:14:00 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,3 @@ double	calculate_resize(t_map_info *map)
 		return (quarter_screen_height / map->height);
 }
 
-bool	resize_map(t_map_info *map)
-{
-	map->ratio = (int)calculate_resize(map);
-	if (mlx_resize_image(map->minimap, map->width * map->ratio, \
-	map->height * map->ratio) == false)
-		return (false);
-	else
-		return (true);
-}

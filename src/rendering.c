@@ -6,42 +6,46 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/28 11:14:01 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/04 11:50:39 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/04 13:15:26 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// static void	put_tile(mlx_image_t *image, u_int32_t x, u_int32_t y, u_int32_t color)
-// // {
-// 	int			yy;
-// 	int			xx;
+static void	put_tile(mlx_image_t *image, t_coordinates *coord, \
+unsigned int color, int ratio)
+{
+	int			yy;
+	int			xx;
 
-// 	yy = 0;
-// 	while (yy < TILE_SIZE)
-// 	{
-// 		xx = 0;
-// 		while (xx < TILE_SIZE)
-// 		{
-// 			mlx_put_pixel(image, x * TILE_SIZE + xx, y * TILE_SIZE + yy, color);
-// 			xx++;
-// 		}
-// 		yy++;
-// 	}
-// 	return ;
-// }
+	yy = 0;
+	while (yy < ratio)
+	{
+		xx = 0;
+		while (xx < ratio)
+		{
+			mlx_put_pixel(image, coord->x * ratio + xx, \
+			coord->y * ratio + yy, color);
+			xx++;
+		}
+		yy++;
+	}
+	return ;
+}
 
 int32_t	render_player(t_game_info *game)
 {
 	t_player_info	player;
 	t_map_info		map;
+	t_coordinates	coord;
 
+	coord.y = 0;
+	coord.x = 0;
 	player = game->player;
 	map = game->map;
-	player.image = mlx_new_image(game->mlx, 1, 1);
-	mlx_put_pixel(player.image, 0, 0, 0x80FFFFFF);
-	if (mlx_resize_image(player.image, map.ratio, map.ratio) == false || \
-	mlx_image_to_window(game->mlx, player.image, player.position.x * \
+	player.image = mlx_new_image(game->mlx, map.ratio, map.ratio);
+	put_tile(player.image, &coord, 0x80FFFFFF, map.ratio);
+	if (mlx_image_to_window(game->mlx, player.image, player.position.x * \
 	map.ratio + 10, player.position.y * map.ratio + 10) == -1)
 		return (mlx_error_wrapper(game->mlx), EXIT_FAILURE);
 	return (EXIT_SUCCESS);
@@ -49,28 +53,29 @@ int32_t	render_player(t_game_info *game)
 
 int32_t	render_minimap(t_game_info *game)
 {
-	t_map_info	*map;
-	int			y;
-	int			x;
+	t_map_info		*map;
+	t_coordinates	coord;
 
-	y = 0;
+	coord.y = 0;
 	map = &game->map;
-	map->minimap = mlx_new_image(game->mlx, map->width, map->height);
-	while (map->layout[y] != NULL)
+	map->ratio = (int)calculate_resize(map);
+	map->minimap = mlx_new_image(game->mlx, map->width * map->ratio, \
+	map->height * map->ratio);
+	while (map->layout[(int)coord.y] != NULL)
 	{
-		x = 0;
-		while (map->layout[y][x] != '\0')
+		coord.x = 0;
+		while (map->layout[(int)coord.y][(int)coord.x] != '\0')
 		{
-			if (map->layout[y][x] == '1')
-				mlx_put_pixel(map->minimap, x, y, 0xFFFFFFCC);
-			else if (ft_strchr("0NOSW",map->layout[y][x]) != NULL)
-				mlx_put_pixel(map->minimap, x, y, 0xFFFFFF80);
-			x++;
+			if (map->layout[(int)coord.y][(int)coord.x] == '1')
+				put_tile(map->minimap, &coord, 0xFFFFFFCC, map->ratio);
+			else if (ft_strchr("0NOSW", \
+			map->layout[(int)coord.y][(int)coord.x]) != NULL)
+				put_tile(map->minimap, &coord, 0xFFFFFF80, map->ratio);
+			coord.x++;
 		}
-		y++;
+		coord.y++;
 	}
-	if (resize_map(map) == false || \
-	mlx_image_to_window(game->mlx, map->minimap, 10, 10) == -1)
+	if (mlx_image_to_window(game->mlx, map->minimap, 10, 10) == -1)
 		return (mlx_error_wrapper(game->mlx), EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
