@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:50:32 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/06/29 16:01:40 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/04 13:46:29 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,11 +115,11 @@ int	map_validation(t_game_info *game, t_error *errme)
 		curr = below;
 		below = get_next_line(game->file.fd);
 		if (map_is_valid(above, curr, below, game) == false)
-			return (free_3(above, curr, below), MAP_NV);
+			return (my_freestr(below), my_freestr(curr), MAP_NV);
 		if (below == NULL)
 		{
 			if (game->player.orientation == 0)
-				return (ft_printf(errme->map4), free_3(above, curr, below), 1);
+				return (ft_printf(errme->map4), 1);
 			return (MAP_OK);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/18 13:39:55 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/06/24 12:37:49 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/04 13:47:28 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,3 @@ void	free_map_struct(t_map_info *map)
 	return ;
 }
 
-void	free_3(char *str1, char *str2, char *str3)
-{
-	my_freestr(str1);
-	my_freestr(str2);
-	my_freestr(str3);
-	return ;
-}
