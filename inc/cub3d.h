@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:26:12 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/06/30 22:37:23 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/04 13:21:49 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 
 #define WIDTH 1600
 #define HEIGHT 900
-#define TILE_SIZE 8
 
 typedef struct s_coordinates
 {
@@ -62,6 +61,7 @@ typedef struct s_map_info
 	char			*f_color;
 	char			*c_color;
 	mlx_image_t		*minimap;
+	int				ratio;
 }	t_map_info;
 
 typedef struct s_file_info
@@ -106,6 +106,8 @@ int32_t	window_management(t_game_info *game);
 /* rendering */
 int32_t	render_minimap(t_game_info *game);
 int32_t	render_player(t_game_info *game);
+
+double	calculate_resize(t_map_info *map);
 
 /* player movement*/
 void	move_up(t_game_info *game);
