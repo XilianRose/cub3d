@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/21 11:28:59 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/05 13:55:19 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/05 15:23:20 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,18 +53,25 @@ static void	keyhook(mlx_key_data_t keydata, void *param)
 		mlx_set_window_size(game->mlx, game->mlx->width - 32,
 			game->mlx->height - 32);
 	if (((keydata.key == MLX_KEY_UP) || (keydata.key == MLX_KEY_W))
-		&& (keydata.action == MLX_RELEASE))
+		&& (keydata.action != MLX_RELEASE))
 		move_up(game);
 	if (((keydata.key == MLX_KEY_DOWN) || (keydata.key == MLX_KEY_S))
-		&& (keydata.action == MLX_RELEASE))
+		&& (keydata.action != MLX_RELEASE))
 		move_down(game);
 	if (((keydata.key == MLX_KEY_LEFT) || (keydata.key == MLX_KEY_A))
-		&& (keydata.action == MLX_RELEASE))
+		&& (keydata.action == MLX_PRESS))
 		move_left(game);
 	if (((keydata.key == MLX_KEY_RIGHT) || (keydata.key == MLX_KEY_D))
-		&& (keydata.action == MLX_RELEASE))
+		&& (keydata.action == MLX_PRESS))
 		move_right(game);
 }
+
+	// if (mlx_is_key_down(game->mlx, MLX_KEY_UP) || \
+	// mlx_is_key_down(game->mlx, MLX_KEY_W))
+	// 	move_up(game);
+	// if (mlx_is_key_down(game->mlx, MLX_KEY_DOWN) || \
+	// mlx_is_key_down(game->mlx, MLX_KEY_S))
+	// 	move_down(game);
 
 int32_t	window_management(t_game_info *game)
 {
