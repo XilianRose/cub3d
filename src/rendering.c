@@ -6,43 +6,36 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/28 11:14:01 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/04 17:50:01 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/05 12:11:11 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	put_line(int x, t_ray *ray, unsigned int color, \
+void	put_line(int x, t_game_info *game, unsigned int color, \
 mlx_image_t *image)
 {
+	t_ray			*ray;
 	unsigned int	i;
 
+	ray = &game->player.ray;
+	i = HEIGHT - 1;
+	while (i >= ray->line_end)
+	{
+		mlx_put_pixel(image, x, i, get_color(game->map.f_color, &game->errme));
+		i--;
+	}
+	i = 0;
+	while ((int) i < ray->line_start)
+	{
+		mlx_put_pixel(image, x, i, get_color(game->map.c_color, &game->errme));
+		i++;
+	}
 	i = ray->line_start;
-	while (i != ray->line_end)
+	while (i <= ray->line_end)
 	{
 		mlx_put_pixel(image, x, i, color);
 		i++;
-	}
-	return ;
-}
-
-static void	put_tile(mlx_image_t *image, t_coordinates *coord, \
-unsigned int color, int ratio)
-{
-	int			yy;
-	int			xx;
-
-	yy = 0;
-	while (yy < ratio)
-	{
-		xx = 0;
-		while (xx < ratio)
-		{
-			mlx_put_pixel(image, coord->x * ratio + xx, \
-			coord->y * ratio + yy, color);
-			xx++;
-		}
-		yy++;
 	}
 	return ;
 }
