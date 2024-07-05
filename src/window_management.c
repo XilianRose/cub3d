@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/21 11:28:59 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/03 17:13:53 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/05 13:55:19 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,12 @@ static void	loophook(void *param)
 
 	game = param;
 	mlx_delete_image(game->mlx, game->image);
+	mlx_delete_image(game->mlx,game->player.image);
 	game->image = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	raycast(&game->player, &game->map, game->image);
 	if (!game->image || \
-	mlx_image_to_window(game->mlx, game->image, 0, 0) == -1)
+	mlx_image_to_window(game->mlx, game->image, 0, 0) == -1 || \
+	render_player(game) == EXIT_FAILURE)
 	{
 		error(game->mlx);
 		return ;
@@ -72,8 +74,7 @@ int32_t	window_management(t_game_info *game)
 	if (!mlx)
 		return (error(NULL));
 	game->mlx = mlx;
-	if (render_minimap(game) == EXIT_FAILURE \
-	|| render_player(game) == EXIT_FAILURE)
+	if (render_minimap(game) == EXIT_FAILURE)
 		return (mlx_terminate(game->mlx), EXIT_FAILURE);
 	mlx_loop_hook(mlx, &loophook, game);
 	mlx_key_hook(mlx, &keyhook, game);
