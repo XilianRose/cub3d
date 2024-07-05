@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/27 15:08:51 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/04 17:48:13 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/05 12:15:57 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,8 @@ void	dda(t_player_info *player, t_map_info *map)
 	}
 }
 
-void	raycast(t_player_info *player, t_map_info *map, mlx_image_t *image)
+void	raycast(t_player_info *player, t_map_info *map, mlx_image_t *image, \
+t_game_info *game)
 {
 	int				x;
 	unsigned int	color;
@@ -119,9 +120,9 @@ void	raycast(t_player_info *player, t_map_info *map, mlx_image_t *image)
 		dda(player, map);
 		calculate_height_distance(player);
 		if (player->ray.side == EW_SIDE)
-			put_line(x, &player->ray, color, image);
+			put_line(x, game, color, image);
 		else
-			put_line(x, &player->ray, color / 3, image);
+			put_line(x, game, color / 3, image);
 		x++;
 	}
 }
