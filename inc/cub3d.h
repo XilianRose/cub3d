@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:26:12 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/10 13:28:47 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/10 15:11:49 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 #define EW_SIDE 0
 #define NS_SIDE 1
 
-#define	WHITE50 0xFFFFFF80
+#define WHITE50 0xFFFFFF80
 #define WHITE80 0xFFFFFFCC
 
 typedef struct s_coordinates
@@ -106,7 +106,6 @@ typedef struct s_game_info
 	mlx_image_t		*image;
 	mlx_image_t		*fps_image;
 	double			time;
-	double			old_time;
 }	t_game_info;
 
 /* map validation */

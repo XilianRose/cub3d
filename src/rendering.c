@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/28 11:14:01 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/10 14:00:12 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/10 15:17:14 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,34 +38,15 @@ int32_t	render_player(t_game_info *game)
 	coord.x = 0;
 	player = &game->player;
 	map = game->map;
-	player->image = mlx_put_string(game->mlx, "v", \
-	player->position.x * map.ratio + 10 + (map.ratio / 4), \
-	player->position.y * map.ratio + 10 + (map.ratio / 4));
-	if (!player->image)
+	player->image = mlx_new_image(game->mlx, map.ratio / 2, map.ratio / 2);
+	put_tile(player->image, &coord, 0x80FFFFFF, map.ratio / 2);
+	if (mlx_image_to_window(game->mlx, player->image, \
+	player->position.x * map.ratio + 10, \
+	player->position.y * map.ratio + 10) == -1)
 		return (mlx_error_wrapper(game->mlx), EXIT_FAILURE);
 	mlx_set_instance_depth(player->image->instances, 11);
 	return (EXIT_SUCCESS);
 }
-
-// int32_t	render_player(t_game_info *game)
-// {
-// 	t_player_info	*player;
-// 	t_map_info		map;
-// 	t_coordinates	coord;
-
-// 	coord.y = 0;
-// 	coord.x = 0;
-// 	player = &game->player;
-// 	map = game->map;
-// 	player->image = mlx_new_image(game->mlx, map.ratio / 2, map.ratio / 2);
-// 	put_tile(player->image, &coord, 0x80FFFFFF, map.ratio / 2);
-// 	if (mlx_image_to_window(game->mlx, player->image, \
-// 	player->position.x * map.ratio + 10 + map.ratio / 4, \
-// 	player->position.y * map.ratio + 10  + map.ratio / 4) == -1)
-// 		return (mlx_error_wrapper(game->mlx), EXIT_FAILURE);
-// 	mlx_set_instance_depth(player->image->instances, 11);
-// 	return (EXIT_SUCCESS);
-// }
 
 int32_t	render_minimap(t_game_info *game)
 {

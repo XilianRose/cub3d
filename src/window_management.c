@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/21 11:28:59 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/10 13:24:14 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/10 15:12:17 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static void	new_frame(t_game_info *game)
 	mlx_delete_image(game->mlx, game->image);
 	mlx_delete_image(game->mlx, game->player.image);
 	mlx_delete_image(game->mlx, game->fps_image);
-	game->old_time = game->time;
 	game->time = game->mlx->delta_time;
 	game->image = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	raycast(&game->player, &game->map, game->image);
