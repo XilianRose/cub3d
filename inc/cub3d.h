@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:26:12 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/04 17:52:58 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/10 13:28:47 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@
 
 #define EW_SIDE 0
 #define NS_SIDE 1
+
+#define	WHITE50 0xFFFFFF80
+#define WHITE80 0xFFFFFFCC
 
 typedef struct s_coordinates
 {
@@ -101,6 +104,9 @@ typedef struct s_game_info
 	t_player_info	player;
 	mlx_t			*mlx;
 	mlx_image_t		*image;
+	mlx_image_t		*fps_image;
+	double			time;
+	double			old_time;
 }	t_game_info;
 
 /* map validation */
@@ -115,9 +121,12 @@ int32_t	window_management(t_game_info *game);
 /* rendering */
 int32_t	render_minimap(t_game_info *game);
 int32_t	render_player(t_game_info *game);
+int32_t	render_stats(t_game_info *game);
+
 void	put_line(int x, t_ray *ray, unsigned int color, \
 	mlx_image_t *image);
-
+void	put_tile(mlx_image_t *image, t_coordinates *coord, \
+unsigned int color, int ratio);
 double	calculate_resize(t_map_info *map);
 
 /* raycast */
