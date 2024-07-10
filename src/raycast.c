@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/27 15:08:51 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/04 17:48:13 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/10 15:55:16 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@ void	calculate_height_distance(t_player_info *player)
 	int	line_height;
 
 	if (player->ray.side == EW_SIDE)
-		player->ray.wall_dist = player->ray.side_dist.x - player->ray.delta_dist.x;
+		player->ray.wall_dist = player->ray.side_dist.x - \
+		player->ray.delta_dist.x;
 	else
-		player->ray.wall_dist = player->ray.side_dist.y - player->ray.delta_dist.y;
+		player->ray.wall_dist = player->ray.side_dist.y - \
+		player->ray.delta_dist.y;
 	line_height = HEIGHT / player->ray.wall_dist;
 	player->ray.line_start = (-line_height / 2) + (HEIGHT / 2);
 	if (player->ray.line_start < 0)
@@ -70,11 +72,11 @@ void	calculate_ray_direction(t_player_info *player, int x)
 	if (ray->dir.x == 0)
 		ray->delta_dist.x = 1e30;
 	else
-	ray->delta_dist.x = fabs(1 / ray->dir.x);
+		ray->delta_dist.x = fabs(1 / ray->dir.x);
 	if (ray->dir.y == 0)
 		ray->delta_dist.y = 1e30;
 	else
-	ray->delta_dist.y = fabs(1 / ray->dir.y);
+		ray->delta_dist.y = fabs(1 / ray->dir.y);
 }
 
 void	dda(t_player_info *player, t_map_info *map)
