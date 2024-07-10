@@ -6,11 +6,46 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/04 10:52:04 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/04 13:14:00 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/10 12:37:36 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	put_line(int x, t_ray *ray, unsigned int color, \
+mlx_image_t *image)
+{
+	unsigned int	i;
+
+	i = ray->line_start;
+	while (i != ray->line_end)
+	{
+		mlx_put_pixel(image, x, i, color);
+		i++;
+	}
+	return ;
+}
+
+void	put_tile(mlx_image_t *image, t_coordinates *coord, \
+unsigned int color, int ratio)
+{
+	int			yy;
+	int			xx;
+
+	yy = 0;
+	while (yy < ratio)
+	{
+		xx = 0;
+		while (xx < ratio)
+		{
+			mlx_put_pixel(image, coord->x * ratio + xx, \
+			coord->y * ratio + yy, color);
+			xx++;
+		}
+		yy++;
+	}
+	return ;
+}
 
 double	calculate_resize(t_map_info *map)
 {
