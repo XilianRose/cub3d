@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/04 10:52:04 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/11 15:38:09 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/11 15:45:28 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,27 +41,6 @@ uint32_t	get_color(char	*str, t_error *errme)
 		return (my_freearray(char_array), exit_wrapper(errme->map5), res);
 	res = get_rgba(int_array[0], int_array[1], int_array[2], 255);
 	return (my_freearray(char_array), res);
-}
-
-void	put_tile(mlx_image_t *image, t_coordinates *coord, \
-unsigned int color, int ratio)
-{
-	int			yy;
-	int			xx;
-
-	yy = 0;
-	while (yy < ratio)
-	{
-		xx = 0;
-		while (xx < ratio)
-		{
-			mlx_put_pixel(image, coord->x * ratio + xx, \
-			coord->y * ratio + yy, color);
-			xx++;
-		}
-		yy++;
-	}
-	return ;
 }
 
 void	put_tile(mlx_image_t *image, t_coordinates *coord, \

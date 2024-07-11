@@ -6,13 +6,13 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:50:32 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/06/26 15:07:23 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/11 16:12:09 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	save_elements(char *row, t_map_info *map)
+void	save_elements(char *row, t_map_info *map, t_error *errme)
 {
 	if (ft_strnstr(row, "NO ", 3))
 		map->no_texture = row;
@@ -23,9 +23,15 @@ void	save_elements(char *row, t_map_info *map)
 	else if (ft_strnstr(row, "EA ", 3))
 		map->ea_texture = row;
 	else if (ft_strnstr(row, "C ", 2))
-		map->c_color = row;
+	{
+		map->c_color = get_color(row, errme);
+		my_freestr(row);
+	}
 	else if (ft_strnstr(row, "F ", 2))
-		map->f_color = row;
+	{
+		map->f_color = get_color(row, errme);
+		my_freestr(row);
+	}
 	else
 		my_freestr(row);
 	return ;
@@ -50,7 +56,7 @@ bool	elements_not_null(t_map_info *map)
 {
 	if (map->no_texture == NULL || map->so_texture == NULL || \
 	map->we_texture == NULL || map->ea_texture == NULL || \
-	map->c_color == NULL || map->f_color == NULL)
+	map->c_color == 0 || map->f_color == 0)
 		return (false);
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/28 11:14:01 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/11 15:40:51 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/11 16:19:35 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ mlx_image_t *image)
 	i = HEIGHT - 1;
 	while (i >= ray->line_end)
 	{
-		mlx_put_pixel(image, x, i, get_color(game->map.f_color, &game->errme));
+		mlx_put_pixel(image, x, i, game->map.f_color);
 		i--;
 	}
 	i = 0;
 	while ((int) i < ray->line_start)
 	{
-		mlx_put_pixel(image, x, i, get_color(game->map.c_color, &game->errme));
+		mlx_put_pixel(image, x, i, game->map.c_color);
 		i++;
 	}
 	i = ray->line_start;

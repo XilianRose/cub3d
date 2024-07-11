@@ -6,20 +6,21 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:50:32 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/10 15:40:27 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/11 16:08:06 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static bool	contains_elements(t_file_info *file, t_map_info *map)
+static bool	contains_elements(t_file_info *file, t_map_info *map, \
+t_error *errme)
 {
 	char	*row;
 
 	row = get_next_line(file->fd);
 	while (elements_not_null(map) == false && row != NULL)
 	{
-		save_elements(row, map);
+		save_elements(row, map, errme);
 		row = get_next_line(file->fd);
 	}
 	my_freestr(row);
@@ -107,7 +108,7 @@ int	map_validation(t_game_info *game, t_error *errme)
 	above = NULL;
 	curr = NULL;
 	below = NULL;
-	if (contains_elements(&game->file, &game->map) != true)
+	if (contains_elements(&game->file, &game->map, errme) != true)
 		return (ft_printf(errme->map0), MAP_NV);
 	while (1)
 	{

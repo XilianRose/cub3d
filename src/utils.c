@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:32:23 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/11 15:42:23 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/11 16:09:48 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,8 @@ void	initialize_map_info(t_game_info *game)
 	game->map.so_texture = NULL;
 	game->map.we_texture = NULL;
 	game->map.ea_texture = NULL;
-	game->map.f_color = NULL;
-	game->map.c_color = NULL;
+	game->map.f_color = 0;
+	game->map.c_color = 0;
 	game->player.orientation = 0;
 	game->player.position.x = 0;
 	game->player.position.y = 0;
