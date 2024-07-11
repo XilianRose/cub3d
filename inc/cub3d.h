@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:26:12 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/11 17:43:17 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/11 18:13:45 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ int32_t		window_management(t_game_info *game);
 int32_t		render_minimap(t_game_info *game);
 int32_t		render_player(t_game_info *game);
 int32_t		render_stats(t_game_info *game);
+void		render_view(t_game_info *game, mlx_image_t *image, int x);
 void		put_line(int x, t_game_info *game, unsigned int color, \
 			mlx_image_t *image);
 void		put_tile(mlx_image_t *image, t_coordinates *coord, \

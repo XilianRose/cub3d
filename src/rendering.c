@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/28 11:14:01 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/11 18:07:43 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/11 18:13:06 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ void	render_view(t_game_info *game, mlx_image_t *image, int x)
 		if (game->player.ray.dir.x > 0)
 			put_line(x, game, color, image);//change to accept texture
 		else
-			put_line(x, game, color, image);//change to accept texture
+			put_line(x, game, color/2, image);//change to accept texture
 	}
 	else
 	{
 		if (game->player.ray.dir.y > 0)
-			put_line(x, game, color, image); //change to accept texture
+			put_line(x, game, color/3, image); //change to accept texture
 		else
-			put_line(x, game, color, image);//change to accept texture
+			put_line(x, game, color/4, image);//change to accept texture
 	}
 }
 
