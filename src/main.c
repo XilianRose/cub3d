@@ -6,29 +6,11 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:14:01 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/05 14:32:36 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/11 17:08:12 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-/**
- * @todo
- *
- * window management
- *
- * DDA algorithm (raycasting)
- * 	Calculate ray direction
- * 	Calculate delta distance
- * 	Calculate step & initial side distance
- * 	DDA
- * 	Calculate wall height
- *
- * rendering
- * 	(mlx image functionality)
- *
- * Player movement
- */
 
 static int	file_validation(t_file_info *file, t_error *errme)
 {
