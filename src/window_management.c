@@ -6,19 +6,46 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/21 11:28:59 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/05 10:47:41 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/11 15:45:02 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int32_t	error(mlx_t	*mlx)
+static void	new_frame(t_game_info *game)
 {
-	if (mlx)
-		mlx_close_window(mlx);
-	ft_putstr_fd((char *) mlx_strerror(mlx_errno), 2);
-	mlx_terminate(mlx);
-	return (EXIT_FAILURE);
+	mlx_delete_image(game->mlx, game->image);
+	mlx_delete_image(game->mlx, game->player.image);
+	mlx_delete_image(game->mlx, game->fps_image);
+	game->time = game->mlx->delta_time;
+	game->image = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	raycast(&game->player, &game->map, game->image, game);
+	if (!game->image || render_stats(game) == EXIT_FAILURE || \
+	mlx_image_to_window(game->mlx, game->image, 0, 0) == -1 || \
+	render_player(game) == EXIT_FAILURE)
+	{
+		mlx_error_wrapper(game->mlx);
+		return ;
+	}
+	mlx_set_instance_depth(game->image->instances, 1);
+}
+
+static void	process_input(t_game_info *game)
+{
+	if (mlx_is_key_down(game->mlx, MLX_KEY_UP) || \
+	(mlx_is_key_down(game->mlx, MLX_KEY_W)))
+		move_up(game);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_DOWN) || \
+	(mlx_is_key_down(game->mlx, MLX_KEY_S)))
+		move_down(game);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
+		move_left(game);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
+		move_right(game);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
+		rotate_left(game);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
+		rotate_right(game);
 }
 
 static void	loophook(void *param)
@@ -26,15 +53,8 @@ static void	loophook(void *param)
 	t_game_info	*game;
 
 	game = param;
-	mlx_delete_image(game->mlx, game->image);
-	game->image = mlx_new_image(game->mlx, WIDTH, HEIGHT);
-	raycast(&game->player, &game->map, game->image, game);
-	if (!game->image || \
-	mlx_image_to_window(game->mlx, game->image, 0, 0) == -1)
-	{
-		error(game->mlx);
-		return ;
-	}
+	process_input(game);
+	new_frame(game);
 }
 
 static void	keyhook(mlx_key_data_t keydata, void *param)
@@ -50,18 +70,6 @@ static void	keyhook(mlx_key_data_t keydata, void *param)
 	if (keydata.key == MLX_KEY_MINUS && keydata.action == MLX_RELEASE)
 		mlx_set_window_size(game->mlx, game->mlx->width - 32,
 			game->mlx->height - 32);
-	if (((keydata.key == MLX_KEY_UP) || (keydata.key == MLX_KEY_W))
-		&& (keydata.action == MLX_RELEASE))
-		move_up(game);
-	if (((keydata.key == MLX_KEY_DOWN) || (keydata.key == MLX_KEY_S))
-		&& (keydata.action == MLX_RELEASE))
-		move_down(game);
-	if (((keydata.key == MLX_KEY_LEFT) || (keydata.key == MLX_KEY_A))
-		&& (keydata.action == MLX_RELEASE))
-		move_left(game);
-	if (((keydata.key == MLX_KEY_RIGHT) || (keydata.key == MLX_KEY_D))
-		&& (keydata.action == MLX_RELEASE))
-		move_right(game);
 }
 
 int32_t	window_management(t_game_info *game)
@@ -70,10 +78,9 @@ int32_t	window_management(t_game_info *game)
 
 	mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
 	if (!mlx)
-		return (error(NULL));
+		return (mlx_error_wrapper(NULL));
 	game->mlx = mlx;
-	if (render_minimap(game) == EXIT_FAILURE \
-	|| render_player(game) == EXIT_FAILURE)
+	if (render_minimap(game) == EXIT_FAILURE)
 		return (mlx_terminate(game->mlx), EXIT_FAILURE);
 	mlx_loop_hook(mlx, &loophook, game);
 	mlx_key_hook(mlx, &keyhook, game);

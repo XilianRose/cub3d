@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:26:12 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/05 12:10:21 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/11 16:09:19 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@
 
 #define EW_SIDE 0
 #define NS_SIDE 1
+
+#define WHITE50 0xFFFFFF80
+#define WHITE80 0xFFFFFFCC
 
 typedef struct s_coordinates
 {
@@ -67,8 +70,8 @@ typedef struct s_map_info
 	char			*so_texture;
 	char			*we_texture;
 	char			*ea_texture;
-	char			*f_color;
-	char			*c_color;
+	int				f_color;
+	int				c_color;
 	mlx_image_t		*minimap;
 	int				ratio;
 }	t_map_info;
@@ -102,11 +105,13 @@ typedef struct s_game_info
 	t_player_info	player;
 	mlx_t			*mlx;
 	mlx_image_t		*image;
+	mlx_image_t		*fps_image;
+	double			time;
 }	t_game_info;
 
 /* map validation */
 int			map_validation(t_game_info *game, t_error *errme);
-void		save_elements(char *row, t_map_info *map);
+void	save_elements(char *row, t_map_info *map, t_error *errme);
 char		**save_layout(char *row, t_map_info *map);
 bool		elements_not_null(t_map_info *map);
 
@@ -118,9 +123,10 @@ int32_t		window_management(t_game_info *game);
 /* rendering */
 int32_t		render_minimap(t_game_info *game);
 int32_t		render_player(t_game_info *game);
+int32_t		render_stats(t_game_info *game);
+
 void		put_line(int x, t_game_info *game, unsigned int color, \
 			mlx_image_t *image);
-
 uint32_t	get_color(char	*str, t_error *errme);
 void		put_tile(mlx_image_t *image, t_coordinates *coord, \
 			unsigned int color, int ratio);
@@ -137,6 +143,8 @@ void		move_up(t_game_info *game);
 void		move_down(t_game_info *game);
 void		move_left(t_game_info *game);
 void		move_right(t_game_info *game);
+void		rotate_left(t_game_info *game);
+void		rotate_right(t_game_info *game);
 
 /* free */
 void		free_map_struct(t_map_info *map);

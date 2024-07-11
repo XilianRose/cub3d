@@ -6,29 +6,11 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:14:01 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/04 16:22:55 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/11 17:08:12 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-/**
- * @todo
- *
- * window management
- *
- * DDA algorithm (raycasting)
- * 	Calculate ray direction
- * 	Calculate delta distance
- * 	Calculate step & initial side distance
- * 	DDA
- * 	Calculate wall height
- *
- * rendering
- * 	(mlx image functionality)
- *
- * Player movement
- */
 
 static int	file_validation(t_file_info *file, t_error *errme)
 {
@@ -52,9 +34,9 @@ int	main(int argc, char **argv)
 	if (file_validation(&game.file, &game.errme) == FILE_NV)
 		return (FILE_NV);
 	initialize_map_info(&game);
-	initialize_ray_info(&game);
 	if (map_validation(&game, &game.errme) == MAP_NV)
 		return (free_map_struct(&game.map), EXIT_FAILURE);
+	initialize_ray_info(&game);
 	if (window_management(&game) == EXIT_FAILURE)
 		return (free_map_struct(&game.map), EXIT_FAILURE);
 	return (free_map_struct(&game.map), EXIT_SUCCESS);
