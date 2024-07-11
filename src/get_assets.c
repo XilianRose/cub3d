@@ -6,11 +6,13 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/11 17:36:30 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/11 17:36:54 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/11 18:09:49 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+//add get_texture
 
 static int	get_rgba(int r, int g, int b, int a)
 {

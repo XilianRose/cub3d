@@ -6,38 +6,31 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/28 11:14:01 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/11 16:19:35 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/11 18:07:43 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	put_line(int x, t_game_info *game, unsigned int color, \
-mlx_image_t *image)
+void	render_view(t_game_info *game, mlx_image_t *image, int x)
 {
-	t_ray			*ray;
-	unsigned int	i;
+	unsigned int	color;
 
-	ray = &game->player.ray;
-	i = HEIGHT - 1;
-	while (i >= ray->line_end)
+	color = 0xff0000ff;
+	if (game->player.ray.side == EW_SIDE)
 	{
-		mlx_put_pixel(image, x, i, game->map.f_color);
-		i--;
+		if (game->player.ray.dir.x > 0)
+			put_line(x, game, color, image);//change to accept texture
+		else
+			put_line(x, game, color, image);//change to accept texture
 	}
-	i = 0;
-	while ((int) i < ray->line_start)
+	else
 	{
-		mlx_put_pixel(image, x, i, game->map.c_color);
-		i++;
+		if (game->player.ray.dir.y > 0)
+			put_line(x, game, color, image); //change to accept texture
+		else
+			put_line(x, game, color, image);//change to accept texture
 	}
-	i = ray->line_start;
-	while (i <= ray->line_end)
-	{
-		mlx_put_pixel(image, x, i, color);
-		i++;
-	}
-	return ;
 }
 
 int32_t	render_stats(t_game_info *game)
