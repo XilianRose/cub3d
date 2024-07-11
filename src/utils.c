@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:32:23 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/10 15:08:48 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/11 15:42:23 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void	error_message(t_error *errme)
 	errme->map2 = "Error\nmap contains invalid characters\n";
 	errme->map3 = "Error\nmap contains more than 1 player starting positions\n";
 	errme->map4 = "Error\nmap contains no player starting positions\n";
+	errme->map5 = "Error\nmap contains invalid colorcodes\n";
 	errme->mem0 = "Error\nmalloc failed\n";
 	return ;
 }

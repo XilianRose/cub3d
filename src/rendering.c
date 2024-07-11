@@ -6,11 +6,39 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/28 11:14:01 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/10 15:17:14 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/11 15:40:51 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	put_line(int x, t_game_info *game, unsigned int color, \
+mlx_image_t *image)
+{
+	t_ray			*ray;
+	unsigned int	i;
+
+	ray = &game->player.ray;
+	i = HEIGHT - 1;
+	while (i >= ray->line_end)
+	{
+		mlx_put_pixel(image, x, i, get_color(game->map.f_color, &game->errme));
+		i--;
+	}
+	i = 0;
+	while ((int) i < ray->line_start)
+	{
+		mlx_put_pixel(image, x, i, get_color(game->map.c_color, &game->errme));
+		i++;
+	}
+	i = ray->line_start;
+	while (i <= ray->line_end)
+	{
+		mlx_put_pixel(image, x, i, color);
+		i++;
+	}
+	return ;
+}
 
 int32_t	render_stats(t_game_info *game)
 {
