@@ -1,7 +1,7 @@
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
+NO ../assets/eagle.png
+SO ../assets/eagle.png
+WE ../assets/mossy.png
+EA ../assets/eagle.png
 
 F 96,96,96
 C 204,255,255

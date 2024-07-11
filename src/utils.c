@@ -6,95 +6,11 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:32:23 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/11 16:09:48 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/11 17:38:37 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-char	**realloc_arr(char **ptr, size_t size)
-{
-	char	**res;
-	size_t	old_size;
-
-	res = NULL;
-	old_size = 0;
-	if (ptr == NULL)
-		return ((char **)ft_calloc(1, sizeof(char *) * (size)));
-	else if (size == 0)
-		return (my_freearray(ptr), NULL);
-	res = (char **)ft_calloc(1, sizeof(char *) * (size));
-	if (!res)
-		return (NULL);
-	while (ptr[old_size] != NULL)
-		old_size++;
-	old_size += 1;
-	if (size > old_size)
-		ft_memmove(res, ptr, sizeof(char *) * (old_size));
-	else
-	{
-		ft_memmove(res, ptr, sizeof(char *) * (size));
-		res[size - 1] = 0;
-	}
-	return (free(ptr), res);
-}
-
-static void	initialize_ray_info_2(t_game_info *game)
-{
-	if (game->player.orientation == 'E')
-	{
-		game->player.ray.plane.x = 0;
-		game->player.ray.plane.y = 1;
-		game->player.dir.x = 1;
-		game->player.dir.y = 0;
-	}
-	if (game->player.orientation == 'W')
-	{
-		game->player.ray.plane.x = 0;
-		game->player.ray.plane.y = -1;
-		game->player.dir.x = -1;
-		game->player.dir.y = 0;
-	}
-	return ;
-}
-
-void	initialize_ray_info(t_game_info *game)
-{
-	if (game->player.orientation == 'N')
-	{
-		game->player.ray.plane.x = 1;
-		game->player.ray.plane.y = 0;
-		game->player.dir.x = 0;
-		game->player.dir.y = -1;
-	}
-	if (game->player.orientation == 'S')
-	{
-		game->player.ray.plane.x = -1;
-		game->player.ray.plane.y = 0;
-		game->player.dir.x = 0;
-		game->player.dir.y = 1;
-	}
-	initialize_ray_info_2(game);
-	return ;
-}
-
-void	initialize_map_info(t_game_info *game)
-{
-	game->map.width = 0;
-	game->map.height = 0;
-	game->map.layout = NULL;
-	game->map.no_texture = NULL;
-	game->map.so_texture = NULL;
-	game->map.we_texture = NULL;
-	game->map.ea_texture = NULL;
-	game->map.f_color = 0;
-	game->map.c_color = 0;
-	game->player.orientation = 0;
-	game->player.position.x = 0;
-	game->player.position.y = 0;
-	game->time = 0;
-	return ;
-}
 
 void	error_message(t_error *errme)
 {

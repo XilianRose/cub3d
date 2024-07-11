@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:26:12 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/11 16:09:19 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/11 17:43:17 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,11 +111,12 @@ typedef struct s_game_info
 
 /* map validation */
 int			map_validation(t_game_info *game, t_error *errme);
-void	save_elements(char *row, t_map_info *map, t_error *errme);
-char		**save_layout(char *row, t_map_info *map);
 bool		elements_not_null(t_map_info *map);
+void		save_elements(char *row, t_map_info *map, t_error *errme);
+char		**save_layout(char *row, t_map_info *map);
 
-void		initialize_map_info(t_game_info *game);
+/* get assets*/
+uint32_t	get_color(char	*str, t_error *errme);
 
 /* window management */
 int32_t		window_management(t_game_info *game);
@@ -124,10 +125,8 @@ int32_t		window_management(t_game_info *game);
 int32_t		render_minimap(t_game_info *game);
 int32_t		render_player(t_game_info *game);
 int32_t		render_stats(t_game_info *game);
-
 void		put_line(int x, t_game_info *game, unsigned int color, \
 			mlx_image_t *image);
-uint32_t	get_color(char	*str, t_error *errme);
 void		put_tile(mlx_image_t *image, t_coordinates *coord, \
 			unsigned int color, int ratio);
 double		calculate_resize(t_map_info *map);
@@ -135,8 +134,6 @@ double		calculate_resize(t_map_info *map);
 /* raycast */
 void		raycast(t_player_info *player, t_map_info *map, mlx_image_t *image, \
 			t_game_info *game);
-
-void		initialize_ray_info(t_game_info *game);
 
 /* player movement*/
 void		move_up(t_game_info *game);
@@ -146,11 +143,15 @@ void		move_right(t_game_info *game);
 void		rotate_left(t_game_info *game);
 void		rotate_right(t_game_info *game);
 
-/* free */
+/* init */
+void		initialize_map_info(t_game_info *game);
+void		initialize_ray_info(t_game_info *game);
+
+/* memory */
 void		free_map_struct(t_map_info *map);
+char		**realloc_arr(char **ptr, size_t size);
 
 /* utils */
-char		**realloc_arr(char **ptr, size_t size);
 void		error_message(t_error *errme);
 int32_t		mlx_error_wrapper(mlx_t	*mlx);
 void		exit_wrapper(char *str);
