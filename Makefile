@@ -6,7 +6,7 @@
 #    By: mstegema <mstegema@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/02/10 14:19:38 by mstegema      #+#    #+#                  #
-#    Updated: 2024/07/10 13:15:38 by mstegema      ########   odam.nl          #
+#    Updated: 2024/07/11 14:18:48 by mstegema      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRCS	= $(SRCDIR)/main.c \
 	$(SRCDIR)/rendering_utils.c \
 	$(SRCDIR)/raycast.c \
 	$(SRCDIR)/player_movement.c \
+	$(SRCDIR)/player_rotation.c \
 	$(SRCDIR)/free.c \
 	$(SRCDIR)/utils.c
 # objects

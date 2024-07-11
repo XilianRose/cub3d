@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/21 11:28:59 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/10 15:12:17 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/11 14:17:00 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,14 @@ static void	process_input(t_game_info *game)
 	if (mlx_is_key_down(game->mlx, MLX_KEY_DOWN) || \
 	(mlx_is_key_down(game->mlx, MLX_KEY_S)))
 		move_down(game);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT) || \
-	(mlx_is_key_down(game->mlx, MLX_KEY_A)))
+	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
 		move_left(game);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT) || \
-	(mlx_is_key_down(game->mlx, MLX_KEY_D)))
+	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
 		move_right(game);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
+		rotate_left(game);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
+		rotate_right(game);
 }
 
 static void	loophook(void *param)
