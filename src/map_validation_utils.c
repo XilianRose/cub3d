@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:50:32 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/11 18:09:22 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/12 14:50:25 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,18 @@
 void	save_elements(char *row, t_map_info *map, t_error *errme)
 {
 	if (ft_strnstr(row, "NO ", 3))
-		map->no_texture = row; //change to get_texture
+		map->no_texture = get_texture(row, errme);
 	else if (ft_strnstr(row, "SO ", 3))
-		map->so_texture = row; //change to get_texture
+		map->so_texture = get_texture(row, errme);
 	else if (ft_strnstr(row, "WE ", 3))
-		map->we_texture = row; //change to get_texture
+		map->we_texture = get_texture(row, errme);
 	else if (ft_strnstr(row, "EA ", 3))
-		map->ea_texture = row; //change to get_texture
+		map->ea_texture = get_texture(row, errme);
 	else if (ft_strnstr(row, "C ", 2))
-	{
 		map->c_color = get_color(row, errme);
-		my_freestr(row);
-	}
 	else if (ft_strnstr(row, "F ", 2))
-	{
 		map->f_color = get_color(row, errme);
-		my_freestr(row);
-	}
-	else
-		my_freestr(row);
+	my_freestr(row);
 	return ;
 }
 

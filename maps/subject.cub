@@ -1,7 +1,7 @@
-NO ../assets/eagle.png
-SO ../assets/eagle.png
-WE ../assets/mossy.png
-EA ../assets/eagle.png
+NO ./assets/eagle.png
+SO ./assets/redbrick.png
+WE ./assets/mossy.png
+EA ./assets/eagle.png
 
 F 96,96,96
 C 204,255,255

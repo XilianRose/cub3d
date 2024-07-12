@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/18 13:39:55 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/11 17:38:44 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/12 15:15:28 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	free_map_struct(t_map_info *map)
 {
-	my_freestr(map->no_texture);
-	my_freestr(map->so_texture);
-	my_freestr(map->we_texture);
-	my_freestr(map->ea_texture);
+	free(map->no_texture);
+	free(map->so_texture);
+	free(map->we_texture);
+	free(map->ea_texture);
 	my_freearray(map->layout);
 	return ;
 }

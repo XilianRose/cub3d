@@ -6,20 +6,40 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/11 17:36:30 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/11 18:09:49 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/12 15:11:47 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-//add get_texture
+mlx_texture_t	*get_texture(char *str, t_error *errme)
+{
+	mlx_texture_t	*texture;
+	char			*temp;
+
+	temp = ft_strtrim(str + 3, "\n");
+	if (!temp)
+	{
+		my_freestr(str);
+		return (exit_wrapper(errme->mem0), NULL);
+	}
+	printf("%s", temp);
+	texture = mlx_load_png(temp);
+	if (!texture)
+	{
+		my_freestr(str);
+		my_freestr(temp);
+		return (exit_wrapper(errme->mlx0), NULL);
+	}
+	return (my_freestr(temp), texture);
+}
 
 static int	get_rgba(int r, int g, int b, int a)
 {
 	return (r << 24 | g << 16 | b << 8 | a);
 }
 
-uint32_t	get_color(char	*str, t_error *errme)
+uint32_t	get_color(char *str, t_error *errme)
 {
 	char	**char_array;
 	int		int_array[3];
