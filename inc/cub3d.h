@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:26:12 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/12 14:49:43 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/16 16:48:24 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ char			**save_layout(char *row, t_map_info *map);
 /* get assets*/
 uint32_t		get_color(char	*str, t_error *errme);
 mlx_texture_t	*get_texture(char *str, t_error *errme);
+uint32_t		get_pixel_color(mlx_texture_t *texture, int x, int y);
 
 /* window management */
 int32_t			window_management(t_game_info *game);
@@ -128,7 +129,7 @@ int32_t			render_minimap(t_game_info *game);
 int32_t			render_player(t_game_info *game);
 int32_t			render_stats(t_game_info *game);
 void			render_view(t_game_info *game, mlx_image_t *image, int x);
-void			put_line(int x, t_game_info *game, unsigned int color, \
+void			draw_wall(int x, t_player_info *player, mlx_texture_t *texture, \
 				mlx_image_t *image);
 void			put_tile(mlx_image_t *image, t_coordinates *coord, \
 				unsigned int color, int ratio);
