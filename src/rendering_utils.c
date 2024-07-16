@@ -6,39 +6,55 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/04 10:52:04 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/11 18:08:26 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/16 16:58:25 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "math.h"
 
-//change to accept texture
-void	put_line(int x, t_game_info *game, unsigned int color, \
+static int	calculate_texture_x(t_player_info *player, mlx_texture_t *texture)
+{
+	t_ray	*ray;
+	double	wall_x;
+	int		tex_x;
+
+	ray = &player->ray;
+	wall_x = 0;
+	tex_x = 0;
+	if (ray->side == 0)
+		wall_x = player->position.y + ray->wall_dist * ray->dir.y;
+	else
+		wall_x = player->position.x + ray->wall_dist * ray->dir.x;
+	wall_x -= floor(wall_x);
+	tex_x = (int)(wall_x * (double)texture->width);
+	if ((ray->side == 0 && ray->dir.x > 0) || (ray->side == 1 && ray->dir.y < 0))
+		tex_x = texture->width - tex_x - 1;
+	return (tex_x);
+}
+
+void	draw_wall(int x, t_player_info *player, mlx_texture_t *texture, \
 mlx_image_t *image)
 {
-	t_ray			*ray;
 	unsigned int	i;
+	uint32_t		color;
+	int				pixel_coordinates[2];
+	double			step;
+	double			tex_tile_pos;
 
-	ray = &game->player.ray;
-	i = HEIGHT - 1;
-	while (i >= ray->line_end)
+	i = player->ray.line_start;
+	step = (double)(texture->height)/(player->ray.line_end - player->ray.line_start);
+	tex_tile_pos = (((player->ray.line_start - HEIGHT) / 2) + \
+	((player->ray.line_end - player->ray.line_start) / 2)) * step;
+	pixel_coordinates[0] = calculate_texture_x(player, texture);
+	while (i <= player->ray.line_end)
 	{
-		mlx_put_pixel(image, x, i, game->map.f_color);
-		i--;
-	}
-	i = 0;
-	while ((int) i < ray->line_start)
-	{
-		mlx_put_pixel(image, x, i, game->map.c_color);
+		pixel_coordinates[1] = (int)tex_tile_pos & (texture->height - 1);
+		tex_tile_pos += step;
+		color = get_pixel_color(texture, pixel_coordinates[0], pixel_coordinates[1]);
+		mlx_put_pixel(image, x, i, color);
 		i++;
 	}
-	i = ray->line_start;
-	while (i <= ray->line_end)
-	{
-		mlx_put_pixel(image, x, i, color); //change to accept texture
-		i++;
-	}
-	return ;
 }
 
 void	put_tile(mlx_image_t *image, t_coordinates *coord, \
@@ -66,13 +82,13 @@ double	calculate_resize(t_map_info *map)
 {
 	double	quarter_screen_width;
 	double	quarter_screen_height;
-	double	layout_width;
-	double	layout_height;
+	// double	layout_width;
+	// double	layout_height;
 
 	quarter_screen_width = (double) WIDTH / 4;
 	quarter_screen_height = (double) HEIGHT / 4;
-	layout_width = (double) map->width;
-	layout_height = (double) map->height;
+	// layout_width = (double) map->width;
+	// layout_height = (double) map->height;
 	if (quarter_screen_width / map->width < quarter_screen_height / map->height)
 		return (quarter_screen_width / map->width);
 	else
