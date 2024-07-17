@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:26:12 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/11 16:09:19 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/16 16:48:24 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,10 @@ typedef struct s_map_info
 	size_t			width;
 	size_t			height;
 	char			**layout;
-	char			*no_texture;
-	char			*so_texture;
-	char			*we_texture;
-	char			*ea_texture;
+	mlx_texture_t	*no_texture;
+	mlx_texture_t	*so_texture;
+	mlx_texture_t	*we_texture;
+	mlx_texture_t	*ea_texture;
 	int				f_color;
 	int				c_color;
 	mlx_image_t		*minimap;
@@ -95,6 +95,7 @@ typedef struct s_error
 	char			*map4;
 	char			*map5;
 	char			*mem0;
+	char			*mlx0;
 }	t_error;
 
 typedef struct s_game_info
@@ -110,47 +111,51 @@ typedef struct s_game_info
 }	t_game_info;
 
 /* map validation */
-int			map_validation(t_game_info *game, t_error *errme);
-void	save_elements(char *row, t_map_info *map, t_error *errme);
-char		**save_layout(char *row, t_map_info *map);
-bool		elements_not_null(t_map_info *map);
+int				map_validation(t_game_info *game, t_error *errme);
+bool			elements_not_null(t_map_info *map);
+void			save_elements(char *row, t_map_info *map, t_error *errme);
+char			**save_layout(char *row, t_map_info *map);
 
-void		initialize_map_info(t_game_info *game);
+/* get assets*/
+uint32_t		get_color(char	*str, t_error *errme);
+mlx_texture_t	*get_texture(char *str, t_error *errme);
+uint32_t		get_pixel_color(mlx_texture_t *texture, int x, int y);
 
 /* window management */
-int32_t		window_management(t_game_info *game);
+int32_t			window_management(t_game_info *game);
 
 /* rendering */
-int32_t		render_minimap(t_game_info *game);
-int32_t		render_player(t_game_info *game);
-int32_t		render_stats(t_game_info *game);
-
-void		put_line(int x, t_game_info *game, unsigned int color, \
-			mlx_image_t *image);
-uint32_t	get_color(char	*str, t_error *errme);
-void		put_tile(mlx_image_t *image, t_coordinates *coord, \
-			unsigned int color, int ratio);
-double		calculate_resize(t_map_info *map);
+int32_t			render_minimap(t_game_info *game);
+int32_t			render_player(t_game_info *game);
+int32_t			render_stats(t_game_info *game);
+void			render_view(t_game_info *game, mlx_image_t *image, int x);
+void			draw_wall(int x, t_player_info *player, mlx_texture_t *texture, \
+				mlx_image_t *image);
+void			put_tile(mlx_image_t *image, t_coordinates *coord, \
+				unsigned int color, int ratio);
+double			calculate_resize(t_map_info *map);
 
 /* raycast */
-void		raycast(t_player_info *player, t_map_info *map, mlx_image_t *image, \
-			t_game_info *game);
-
-void		initialize_ray_info(t_game_info *game);
+void			raycast(t_player_info *player, t_map_info *map, \
+				mlx_image_t *image, t_game_info *game);
 
 /* player movement*/
-void		move_up(t_game_info *game);
-void		move_down(t_game_info *game);
-void		move_left(t_game_info *game);
-void		move_right(t_game_info *game);
-void		rotate_left(t_game_info *game);
-void		rotate_right(t_game_info *game);
+void			move_up(t_game_info *game);
+void			move_down(t_game_info *game);
+void			move_left(t_game_info *game);
+void			move_right(t_game_info *game);
+void			rotate_left(t_game_info *game);
+void			rotate_right(t_game_info *game);
 
-/* free */
-void		free_map_struct(t_map_info *map);
+/* init */
+void			initialize_map_info(t_game_info *game);
+void			initialize_ray_info(t_game_info *game);
+
+/* memory */
+void			free_map_struct(t_map_info *map);
+char			**realloc_arr(char **ptr, size_t size);
 
 /* utils */
-char		**realloc_arr(char **ptr, size_t size);
-void		error_message(t_error *errme);
-int32_t		mlx_error_wrapper(mlx_t	*mlx);
-void		exit_wrapper(char *str);
+void			error_message(t_error *errme);
+int32_t			mlx_error_wrapper(mlx_t	*mlx);
+void			exit_wrapper(char *str);

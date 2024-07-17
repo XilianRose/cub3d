@@ -6,7 +6,7 @@
 #    By: mstegema <mstegema@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/02/10 14:19:38 by mstegema      #+#    #+#                  #
-#    Updated: 2024/07/11 14:18:48 by mstegema      ########   odam.nl          #
+#    Updated: 2024/07/11 17:45:20 by mstegema      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,13 +39,15 @@ BINDIR	= bin
 SRCS	= $(SRCDIR)/main.c \
 	$(SRCDIR)/map_validation.c \
 	$(SRCDIR)/map_validation_utils.c \
+	$(SRCDIR)/get_assets.c \
 	$(SRCDIR)/window_management.c \
 	$(SRCDIR)/rendering.c \
 	$(SRCDIR)/rendering_utils.c \
 	$(SRCDIR)/raycast.c \
 	$(SRCDIR)/player_movement.c \
 	$(SRCDIR)/player_rotation.c \
-	$(SRCDIR)/free.c \
+	$(SRCDIR)/init.c \
+	$(SRCDIR)/memory.c \
 	$(SRCDIR)/utils.c
 # objects
 OBJS	= $(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
