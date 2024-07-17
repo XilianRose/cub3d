@@ -6,12 +6,27 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/04 10:52:04 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/17 15:05:19 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/17 15:22:11 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "math.h"
+
+static int	calculate_line_height(t_player_info *player)
+{
+	int	line_height;
+
+	line_height = 0;
+	if (player->ray.side == EW_SIDE)
+		player->ray.wall_dist = player->ray.side_dist.x - \
+		player->ray.delta_dist.x;
+	else
+		player->ray.wall_dist = player->ray.side_dist.y - \
+		player->ray.delta_dist.y;
+	line_height = HEIGHT / player->ray.wall_dist;
+	return (line_height);
+}
 
 static int	calculate_texture_x(t_player_info *player, mlx_texture_t *texture)
 {
@@ -44,10 +59,9 @@ mlx_image_t *image)
 	double			tex_tile_pos;
 
 	y = player->ray.line_start;
-	step = 1.0 * (texture->height) / \
-	(player->ray.line_end - player->ray.line_start);
+	step = 1.0 * (texture->height) / calculate_line_height(player);
 	tex_tile_pos = (player->ray.line_start - HEIGHT / 2 + \
-	(player->ray.line_end - player->ray.line_start) / 2) * step;
+	calculate_line_height(player) / 2) * step;
 	pixel_coordinates[0] = calculate_texture_x(player, texture);
 	while (y <= player->ray.line_end)
 	{
