@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/11 17:37:40 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/12 12:42:51 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/17 15:31:22 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,8 @@ void	initialize_map_info(t_game_info *game)
 	game->player.position.x = 0;
 	game->player.position.y = 0;
 	game->time = 0;
+	game->image = NULL;
+	game->fps_image = NULL;
+	game->player.image = NULL;
 	return ;
 }
