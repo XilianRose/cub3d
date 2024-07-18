@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/21 11:28:59 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/18 17:07:56 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/07/18 17:30:00 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ static void	keyhook(mlx_key_data_t keydata, void *param)
 int32_t	window_management(t_game_info *game)
 {
 	mlx_t		*mlx;
-
+	
+	mlx_set_setting(MLX_STRETCH_IMAGE, true);
 	mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
 	if (!mlx)
 		return (mlx_error_wrapper(NULL));
