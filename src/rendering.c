@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/28 11:14:01 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/16 16:54:33 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/18 14:16:33 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,4 +116,3 @@ int32_t	render_minimap(t_game_info *game)
 	mlx_set_instance_depth(game->map.minimap->instances, 6);
 	return (EXIT_SUCCESS);
 }
-

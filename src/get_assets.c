@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/11 17:36:30 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/16 16:47:29 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/18 14:22:42 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,26 +29,31 @@ uint32_t	get_pixel_color(mlx_texture_t *texture, int x, int y)
 	return (color);
 }
 
-mlx_texture_t	*get_texture(char *str, t_error *errme)
+mlx_texture_t	*get_texture(char *str, t_error *errme, mlx_texture_t **texture)
 {
-	mlx_texture_t	*texture;
 	char			*temp;
+	int				fd;
 
-	temp = ft_strtrim(str + 3, "\n");
+	temp = ft_strtrim(str + 3, " \n\t");
 	if (!temp)
+		return (my_freestr(temp), exit_wrapper(errme->mem0), NULL);
+	fd = open(temp, O_RDONLY);
+	if (fd < 0)
 	{
+		*texture = NULL;
+		my_freestr(temp);
 		my_freestr(str);
-		return (exit_wrapper(errme->mem0), NULL);
+		return (exit_wrapper(errme->mlx0), NULL);
 	}
-	printf("%s", temp);
-	texture = mlx_load_png(temp);
+	close(fd);
+	*texture = mlx_load_png(temp);
 	if (!texture)
 	{
 		my_freestr(str);
 		my_freestr(temp);
 		return (exit_wrapper(errme->mlx0), NULL);
 	}
-	return (my_freestr(temp), texture);
+	return (my_freestr(temp), *texture);
 }
 
 uint32_t	get_color(char *str, t_error *errme)

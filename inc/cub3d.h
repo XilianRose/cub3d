@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:26:12 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/16 16:48:24 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/18 14:08:36 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ char			**save_layout(char *row, t_map_info *map);
 
 /* get assets*/
 uint32_t		get_color(char	*str, t_error *errme);
-mlx_texture_t	*get_texture(char *str, t_error *errme);
+mlx_texture_t   *get_texture(char *str, t_error *errme, mlx_texture_t **texture);
 uint32_t		get_pixel_color(mlx_texture_t *texture, int x, int y);
 
 /* window management */

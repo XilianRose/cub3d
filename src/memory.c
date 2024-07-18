@@ -6,18 +6,24 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/18 13:39:55 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/12 15:15:28 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/18 14:26:24 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+static void	free_mlx_texture(mlx_texture_t *texture)
+{
+	if (texture != NULL)
+		mlx_delete_texture(texture);
+}
+
 void	free_map_struct(t_map_info *map)
 {
-	free(map->no_texture);
-	free(map->so_texture);
-	free(map->we_texture);
-	free(map->ea_texture);
+	free_mlx_texture(map->no_texture);
+	free_mlx_texture(map->so_texture);
+	free_mlx_texture(map->we_texture);
+	free_mlx_texture(map->ea_texture);
 	my_freearray(map->layout);
 	return ;
 }
@@ -48,4 +54,3 @@ char	**realloc_arr(char **ptr, size_t size)
 	}
 	return (free(ptr), res);
 }
-
