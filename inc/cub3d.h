@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:26:12 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/18 14:08:36 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/07/18 14:56:16 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ typedef struct s_error
 	char			*map3;
 	char			*map4;
 	char			*map5;
+	char			*map6;
 	char			*mem0;
 	char			*mlx0;
 }	t_error;
