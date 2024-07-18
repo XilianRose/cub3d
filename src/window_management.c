@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/21 11:28:59 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/17 15:31:21 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/18 17:07:56 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,9 @@ static void	new_frame(t_game_info *game)
 
 static void	process_input(t_game_info *game)
 {
-	if (mlx_is_key_down(game->mlx, MLX_KEY_UP) || \
-	(mlx_is_key_down(game->mlx, MLX_KEY_W)))
+	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
 		move_up(game);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_DOWN) || \
-	(mlx_is_key_down(game->mlx, MLX_KEY_S)))
+	if (mlx_is_key_down(game->mlx, MLX_KEY_S))
 		move_down(game);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
 		move_left(game);

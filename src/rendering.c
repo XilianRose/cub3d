@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/28 11:14:01 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/18 14:16:33 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/07/18 17:12:52 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int32_t	render_player(t_game_info *game)
 	player = &game->player;
 	map = game->map;
 	player->image = mlx_new_image(game->mlx, map.ratio / 2, map.ratio / 2);
-	put_tile(player->image, &coord, 0x80FFFFFF, map.ratio / 2);
+	put_tile(player->image, &coord, 0xFF0000FF, map.ratio / 2);
 	if (mlx_image_to_window(game->mlx, player->image, \
 	player->position.x * map.ratio + 10, \
 	player->position.y * map.ratio + 10) == -1)
