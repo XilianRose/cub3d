@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/11 17:36:30 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/18 15:42:39 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/18 17:01:51 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,31 +63,21 @@ static bool	is_valid_color(char *str)
 
 	i = 0;
 	count = 0;
-	printf("%zu\n", ft_strlen(str));
 	if (ft_strlen(str) > 12)
 	{
-		printf("returns false?\n");
 		return (false);
 	}
 	while (str[i] != '\n')
 	{
-		printf("i: %d\n", i);
 		if ((str[i] >= '0' && str[i] <= '9') || str[i] == ',')
 			i++;
 		else
-		{
-			printf("return else false: %c\n", str[i]);
 			return (false);
-		}
 		if (str[i] == ',')
 			count++;
 	}
 	if (count > 2)
-	{
-		printf("count returns false: %d\n", count);
 		return (false);
-	}
-	printf("i: %d and count: %d\n", i, count);
 	return (true);
 }
 

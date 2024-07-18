@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:50:32 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/18 15:16:32 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/18 16:58:57 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,15 @@ mlx_texture_t **texture)
 }
 
 void	handle_color(char *row, t_map_info *map, t_error *errme, \
-uint32_t color)
+uint32_t *color)
 {
-	if (color != 0)
+	if (*color != 0)
 	{
 		my_freestr(row);
 		free_map_struct(map);
 		exit_wrapper(errme->map6);
 	}
-	color = get_color(row, errme);
+	*color = get_color(row, errme);
 }
 
 void	save_elements(char *row, t_map_info *map, t_error *errme)
@@ -47,10 +47,11 @@ void	save_elements(char *row, t_map_info *map, t_error *errme)
 	else if (ft_strnstr(row, "EA ", 3))
 		handle_texture(row, map, errme, &map->ea_texture);
 	else if (ft_strnstr(row, "C ", 2))
-		handle_color(row, map, errme, map->c_color);
+		handle_color(row, map, errme, &map->c_color);
 	else if (ft_strnstr(row, "F ", 2))
-		handle_color(row, map, errme, map->f_color);
-	my_freestr(row);
+		handle_color(row, map, errme, &map->f_color);
+	else
+		my_freestr(row);
 	return ;
 }
 

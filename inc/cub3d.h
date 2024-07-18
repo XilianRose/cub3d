@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:26:12 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/18 14:56:16 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/18 16:42:58 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ typedef struct s_map_info
 	mlx_texture_t	*so_texture;
 	mlx_texture_t	*we_texture;
 	mlx_texture_t	*ea_texture;
-	int				f_color;
-	int				c_color;
+	uint32_t		f_color;
+	uint32_t		c_color;
 	mlx_image_t		*minimap;
 	int				ratio;
 }	t_map_info;
