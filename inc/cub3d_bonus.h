@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   cub3d.h                                            :+:    :+:            */
+/*   cub3d_bonus.h                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:26:12 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/19 13:37:21 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/19 13:34:18 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_ray
 
 typedef struct s_player_info
 {
+	mlx_image_t		*image;
 	char			orientation;
 	t_coordinates	dir;
 	t_coordinates	position;
@@ -71,6 +72,7 @@ typedef struct s_map_info
 	mlx_texture_t	*ea_texture;
 	uint32_t		f_color;
 	uint32_t		c_color;
+	mlx_image_t		*minimap;
 	int				ratio;
 }	t_map_info;
 
@@ -105,6 +107,7 @@ typedef struct s_game_info
 	t_player_info	player;
 	mlx_t			*mlx;
 	mlx_image_t		*image;
+	mlx_image_t		*fps_image;
 	double			time;
 }	t_game_info;
 
@@ -124,11 +127,15 @@ uint32_t		get_pixel_color(mlx_texture_t *texture, int x, int y);
 int32_t			window_management(t_game_info *game);
 
 /* rendering */
+int32_t			render_minimap(t_game_info *game);
+int32_t			render_player(t_game_info *game);
+int32_t			render_stats(t_game_info *game);
 void			render_view(t_game_info *game, mlx_image_t *image, int x);
 void			draw_wall(int x, t_player_info *player, mlx_texture_t *texture, \
 				mlx_image_t *image);
 void			put_tile(mlx_image_t *image, t_coordinates *coord, \
 				unsigned int color, int ratio);
+double			calculate_resize(t_map_info *map);
 
 /* raycast */
 void			raycast(t_player_info *player, t_map_info *map, \

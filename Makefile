@@ -6,11 +6,15 @@
 #    By: mstegema <mstegema@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/02/10 14:19:38 by mstegema      #+#    #+#                  #
-#    Updated: 2024/07/18 13:37:23 by mstegema      ########   odam.nl          #
+#    Updated: 2024/07/19 13:50:15 by mstegema      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
+ifdef BONUS
+NAME	= cub3d_bonus
+else
 NAME	= cub3d
+endif
 
 # compilation
 CC		= cc
@@ -36,6 +40,21 @@ OBJDIR	= obj
 BINDIR	= bin
 
 # sources
+ifdef BONUS
+SRCS	= $(SRCDIR)/main_bonus.c \
+	$(SRCDIR)/map_validation_bonus.c \
+	$(SRCDIR)/map_validation_utils_bonus.c \
+	$(SRCDIR)/get_assets_bonus.c \
+	$(SRCDIR)/window_management_bonus.c \
+	$(SRCDIR)/rendering_bonus.c \
+	$(SRCDIR)/rendering_utils_bonus.c \
+	$(SRCDIR)/raycast_bonus.c \
+	$(SRCDIR)/player_movement_bonus.c \
+	$(SRCDIR)/player_rotation_bonus.c \
+	$(SRCDIR)/init_bonus.c \
+	$(SRCDIR)/memory_bonus.c \
+	$(SRCDIR)/utils_bonus.c
+else
 SRCS	= $(SRCDIR)/main.c \
 	$(SRCDIR)/map_validation.c \
 	$(SRCDIR)/map_validation_utils.c \
@@ -49,6 +68,8 @@ SRCS	= $(SRCDIR)/main.c \
 	$(SRCDIR)/init.c \
 	$(SRCDIR)/memory.c \
 	$(SRCDIR)/utils.c
+endif
+
 # objects
 OBJS	= $(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 
@@ -87,6 +108,9 @@ debug: fclean
 home:
 	$(MAKE) AT_HOME=1
 
+bonus: fclean
+	$(MAKE) BONUS=1
+
 clean:
 	@$(MAKE) clean -C ./libft
 	@rm -rf $(OBJDIR)
@@ -100,4 +124,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re home debug debugathome
+.PHONY: all clean fclean re home debug debugathome bonus

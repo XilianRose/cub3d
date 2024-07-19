@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   window_management.c                                :+:    :+:            */
+/*   window_management_bonus.c                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/21 11:28:59 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/19 13:41:33 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/19 13:40:10 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static void	new_frame(t_game_info *game)
 {
 	mlx_delete_image(game->mlx, game->image);
+	mlx_delete_image(game->mlx, game->fps_image);
+	mlx_delete_image(game->mlx, game->player.image);
 	game->time = game->mlx->delta_time;
 	game->image = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	raycast(&game->player, &game->map, game->image, game);
-	if (!game->image || mlx_image_to_window(game->mlx, game->image, 0, 0) == -1)
+	if (!game->image || render_stats(game) == EXIT_FAILURE || \
+	mlx_image_to_window(game->mlx, game->image, 0, 0) == -1 || \
+	render_player(game) == EXIT_FAILURE)
 	{
 		mlx_error_wrapper(game->mlx);
 		return ;
@@ -75,6 +79,8 @@ int32_t	window_management(t_game_info *game)
 	if (!mlx)
 		return (mlx_error_wrapper(NULL));
 	game->mlx = mlx;
+	if (render_minimap(game) == EXIT_FAILURE)
+		return (mlx_terminate(game->mlx), EXIT_FAILURE);
 	mlx_loop_hook(mlx, &loophook, game);
 	mlx_key_hook(mlx, &keyhook, game);
 	mlx_loop(game->mlx);
