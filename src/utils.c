@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:32:23 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/18 14:56:00 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/19 13:16:00 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,5 @@ int32_t	mlx_error_wrapper(mlx_t	*mlx)
 void	exit_wrapper(char *str)
 {
 	ft_printf("%s", str);
-	exit(0);
+	exit(1);
 }
