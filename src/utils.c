@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:32:23 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/12 12:40:54 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/18 14:56:00 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	error_message(t_error *errme)
 	errme->map3 = "Error\nmap contains more than 1 player starting positions\n";
 	errme->map4 = "Error\nmap contains no player starting positions\n";
 	errme->map5 = "Error\nmap contains invalid colorcodes\n";
+	errme->map6 = "Error\nscene description has double elements\n";
 	errme->mem0 = "Error\nmalloc failed\n";
 	errme->mlx0 = "Error\nloading texture from .png failed\n";
 	return ;

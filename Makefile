@@ -6,7 +6,7 @@
 #    By: mstegema <mstegema@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/02/10 14:19:38 by mstegema      #+#    #+#                  #
-#    Updated: 2024/07/11 17:45:20 by mstegema      ########   odam.nl          #
+#    Updated: 2024/07/18 13:37:23 by mstegema      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME	= cub3d
 
 # compilation
 CC		= cc
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror -O3
 HEADER	= -I $(INCDIR)
 LIBFT	= libft/bin/libft.a
 MLX42	= MLX42/build/libmlx42.a

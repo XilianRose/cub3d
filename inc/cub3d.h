@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:26:12 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/16 16:48:24 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/18 17:41:34 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ typedef struct s_map_info
 	mlx_texture_t	*so_texture;
 	mlx_texture_t	*we_texture;
 	mlx_texture_t	*ea_texture;
-	int				f_color;
-	int				c_color;
+	uint32_t		f_color;
+	uint32_t		c_color;
 	mlx_image_t		*minimap;
 	int				ratio;
 }	t_map_info;
@@ -94,6 +94,7 @@ typedef struct s_error
 	char			*map3;
 	char			*map4;
 	char			*map5;
+	char			*map6;
 	char			*mem0;
 	char			*mlx0;
 }	t_error;
@@ -118,7 +119,8 @@ char			**save_layout(char *row, t_map_info *map);
 
 /* get assets*/
 uint32_t		get_color(char	*str, t_error *errme);
-mlx_texture_t	*get_texture(char *str, t_error *errme);
+mlx_texture_t	*get_texture(char *str, t_error *errme, \
+				mlx_texture_t **texture);
 uint32_t		get_pixel_color(mlx_texture_t *texture, int x, int y);
 
 /* window management */

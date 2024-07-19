@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/29 16:08:57 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/11 14:10:47 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/18 14:16:13 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void	move_left(t_game_info *game)
 	movespeed = game->time * 3.0;
 	x = player->position.x;
 	y = player->position.y;
-
 	if (game->map.layout[(int)y][(int)(x - player->ray.plane.x * movespeed)] \
 		!= '1')
 		player->position.x -= player->ray.plane.x * movespeed;
