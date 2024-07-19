@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   init.c                                             :+:    :+:            */
+/*   init_bonus.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/11 17:37:40 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/19 13:42:06 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/19 13:42:19 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static void	initialize_ray_info_2(t_game_info *game)
 {
@@ -67,5 +67,7 @@ void	initialize_map_info(t_game_info *game)
 	game->player.position.y = 0;
 	game->time = 0;
 	game->image = NULL;
+	game->fps_image = NULL;
+	game->player.image = NULL;
 	return ;
 }

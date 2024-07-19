@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   rendering_utils.c                                  :+:    :+:            */
+/*   rendering_utils_bonus.c                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/04 10:52:04 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/19 13:38:51 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/19 13:40:02 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 #include "math.h"
 
 static int	calculate_line_height(t_player_info *player)
@@ -93,4 +93,17 @@ unsigned int color, int ratio)
 		yy++;
 	}
 	return ;
+}
+
+double	calculate_resize(t_map_info *map)
+{
+	double	quarter_screen_width;
+	double	quarter_screen_height;
+
+	quarter_screen_width = (double) WIDTH / 4;
+	quarter_screen_height = (double) HEIGHT / 4;
+	if (quarter_screen_width / map->width < quarter_screen_height / map->height)
+		return (quarter_screen_width / map->width);
+	else
+		return (quarter_screen_height / map->height);
 }
