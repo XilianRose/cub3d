@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:50:32 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/12 12:00:56 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/19 13:21:47 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,18 +54,14 @@ static bool	map_is_closed(char *above, char *current, char *below, size_t i)
 		if (ft_strchr("1 ", current[i]) == NULL)
 			return (false);
 	}
-	if (current[i] == '0' && (current[i - 1] == ' ' \
+	if (ft_strchr("0NESW", current[i]) != NULL && (current[i - 1] == ' ' \
 	|| current[i + 1] == ' '))
 		return (false);
-	if (above && ft_strlen(current) > ft_strlen(above) \
-	&& i > ft_strlen(above) && current[i] != '1')
+	if (above && ft_strchr("0NESW", current[i]) != NULL && \
+	(i > ft_strlen(above) || above[i] == ' '))
 		return (false);
-	if (below && ft_strlen(current) > ft_strlen(below) \
-	&& i > ft_strlen(below) && current[i] != '1')
-		return (false);
-	if (above && current[i] == '0' && above[i] == ' ')
-		return (false);
-	if (below && current[i] == '0' && below[i] == ' ')
+	if (below && ft_strchr("0NESW", current[i]) != NULL && \
+	(i > ft_strlen(below) || below[i] == ' '))
 		return (false);
 	return (true);
 }
