@@ -6,7 +6,7 @@
 #    By: mstegema <mstegema@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/02/10 14:19:38 by mstegema      #+#    #+#                  #
-#    Updated: 2024/07/19 13:50:15 by mstegema      ########   odam.nl          #
+#    Updated: 2024/07/19 15:23:06 by mstegema      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ SRCS	= $(SRCDIR)/main_bonus.c \
 	$(SRCDIR)/map_validation_utils_bonus.c \
 	$(SRCDIR)/get_assets_bonus.c \
 	$(SRCDIR)/window_management_bonus.c \
+	$(SRCDIR)/window_management_utils_bonus.c \
 	$(SRCDIR)/rendering_bonus.c \
 	$(SRCDIR)/rendering_utils_bonus.c \
 	$(SRCDIR)/raycast_bonus.c \

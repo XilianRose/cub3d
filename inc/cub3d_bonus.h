@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:26:12 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/19 13:34:18 by mstegema      ########   odam.nl         */
+/*   Updated: 2024/07/19 15:32:51 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ typedef struct s_game_info
 	mlx_image_t		*image;
 	mlx_image_t		*fps_image;
 	double			time;
+	t_coordinates	cursor;
 }	t_game_info;
 
 /* map validation */
@@ -125,6 +126,8 @@ uint32_t		get_pixel_color(mlx_texture_t *texture, int x, int y);
 
 /* window management */
 int32_t			window_management(t_game_info *game);
+void			new_frame(t_game_info *game);
+void			process_input(t_game_info *game);
 
 /* rendering */
 int32_t			render_minimap(t_game_info *game);
