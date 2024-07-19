@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/14 16:50:32 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/18 16:58:57 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/07/19 12:26:41 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ mlx_texture_t **texture)
 		exit_wrapper(errme->map6);
 	}
 	*texture = get_texture(row, errme, texture);
+	return ;
 }
 
 void	handle_color(char *row, t_map_info *map, t_error *errme, \
@@ -34,6 +35,7 @@ uint32_t *color)
 		exit_wrapper(errme->map6);
 	}
 	*color = get_color(row, errme);
+	return ;
 }
 
 void	save_elements(char *row, t_map_info *map, t_error *errme)
@@ -50,8 +52,7 @@ void	save_elements(char *row, t_map_info *map, t_error *errme)
 		handle_color(row, map, errme, &map->c_color);
 	else if (ft_strnstr(row, "F ", 2))
 		handle_color(row, map, errme, &map->f_color);
-	else
-		my_freestr(row);
+	my_freestr(row);
 	return ;
 }
 
