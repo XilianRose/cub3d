@@ -6,15 +6,11 @@
 #    By: mstegema <mstegema@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/02/10 14:19:38 by mstegema      #+#    #+#                  #
-#    Updated: 2024/07/19 15:23:06 by mstegema      ########   odam.nl          #
+#    Updated: 2024/07/26 11:29:16 by robertrinh    ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-ifdef BONUS
-NAME	= cub3d_bonus
-else
 NAME	= cub3d
-endif
 
 # compilation
 CC		= cc
@@ -38,23 +34,24 @@ SRCDIR	= src
 INCDIR	= inc
 OBJDIR	= obj
 BINDIR	= bin
+BONUSDIR  = src/bonus
 
 # sources
 ifdef BONUS
-SRCS	= $(SRCDIR)/main_bonus.c \
-	$(SRCDIR)/map_validation_bonus.c \
-	$(SRCDIR)/map_validation_utils_bonus.c \
-	$(SRCDIR)/get_assets_bonus.c \
-	$(SRCDIR)/window_management_bonus.c \
-	$(SRCDIR)/window_management_utils_bonus.c \
-	$(SRCDIR)/rendering_bonus.c \
-	$(SRCDIR)/rendering_utils_bonus.c \
-	$(SRCDIR)/raycast_bonus.c \
-	$(SRCDIR)/player_movement_bonus.c \
-	$(SRCDIR)/player_rotation_bonus.c \
-	$(SRCDIR)/init_bonus.c \
-	$(SRCDIR)/memory_bonus.c \
-	$(SRCDIR)/utils_bonus.c
+SRCS	= $(BONUSDIR)/main_bonus.c \
+	$(BONUSDIR)/map_validation_bonus.c \
+	$(BONUSDIR)/map_validation_utils_bonus.c \
+	$(BONUSDIR)/get_assets_bonus.c \
+	$(BONUSDIR)/window_management_bonus.c \
+	$(BONUSDIR)/window_management_utils_bonus.c \
+	$(BONUSDIR)/rendering_bonus.c \
+	$(BONUSDIR)/rendering_utils_bonus.c \
+	$(BONUSDIR)/raycast_bonus.c \
+	$(BONUSDIR)/player_movement_bonus.c \
+	$(BONUSDIR)/player_rotation_bonus.c \
+	$(BONUSDIR)/init_bonus.c \
+	$(BONUSDIR)/memory_bonus.c \
+	$(BONUSDIR)/utils_bonus.c
 else
 SRCS	= $(SRCDIR)/main.c \
 	$(SRCDIR)/map_validation.c \
@@ -72,7 +69,7 @@ SRCS	= $(SRCDIR)/main.c \
 endif
 
 # objects
-OBJS	= $(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
+OBJS    = $(SRCS:%.c=$(OBJDIR)/%.o)
 
 # colours
 PURPLE	= \033[0;35m
@@ -95,8 +92,8 @@ $(BINDIR)/$(NAME): $(OBJS)
 	@$(CC) -o $(BINDIR)/$(NAME) $(OBJS) $(CFLAGS) $(LIBFT) $(MLX42) $(LINKS)
 	@echo "$(PURPLE)$(NAME)$(NC) has been created"
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c
-	@mkdir -p $(OBJDIR)
+$(OBJDIR)/%.o: %.c
+	@mkdir -p $(dir $@)
 	@$(CC) -c $(CFLAGS) $(HEADER) $< -o $@
 	@echo "Compiling: $(PURPLE)$<$(NC)"
 
