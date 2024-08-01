@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/11 17:36:30 by mstegema      #+#    #+#                 */
-/*   Updated: 2024/07/18 17:01:51 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/08/01 14:41:49 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static bool	is_valid_color(char *str)
 		if (str[i] == ',')
 			count++;
 	}
-	if (count > 2)
+	if (count > 2 || count < 2)
 		return (false);
 	return (true);
 }
@@ -97,9 +97,9 @@ uint32_t	get_color(char *str, t_error *errme)
 		return (exit_wrapper(errme->mem0), res);
 	while (i < 3)
 	{
+		int_array[i] = ft_atoi(char_array[i]);
 		if (int_array[i] < 0 || int_array[i] > 255)
 			return (my_freearray(char_array), exit_wrapper(errme->map5), res);
-		int_array[i] = ft_atoi(char_array[i]);
 		i++;
 	}
 	res = get_rgba(int_array[0], int_array[1], int_array[2], 255);
